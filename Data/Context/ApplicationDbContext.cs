@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MVC.Data
+namespace Data.context
 {
     public class ApplicationDbContext : IdentityDbContext
     {
