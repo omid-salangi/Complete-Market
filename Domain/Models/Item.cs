@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Category
+    public class Item
     {
         public int Id { get; set; }
-        public string Description { get; set; }
-        public string Name { get; set; }
+        public int QuantityInStock { get; set; }
+        public double Price { get; set; }
 
         //relations
-        public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
+        public Product Product { get; set; }
 
     }
 }

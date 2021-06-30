@@ -15,6 +15,12 @@ namespace Domain.Models
         public string LongDescription { get; set; }
         public int VisitCount { get; set; }
         public int BuyCount { get; set; }
+        
+
+        // relations
+        public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
+        public int ItemId { get; set; }
+        public Item Item { get; set; }
 
     }
 }
