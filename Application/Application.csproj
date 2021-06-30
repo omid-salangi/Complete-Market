@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="Interface\" />
     <Folder Include="Services\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
 </Project>
