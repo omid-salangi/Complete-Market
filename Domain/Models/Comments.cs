@@ -18,6 +18,7 @@ namespace Domain.Models
 
         //relations
         public int ProductId { get; set; }
+        [ForeignKey("ProductId")]
         public Product Product { get; set; }
         public string IdentityUserChangeId { get; set; }
         [ForeignKey("IdentityUserChangeId")]
