@@ -9,7 +9,7 @@ using Domain.Models;
 
 namespace Data.Context
 {
-    class AppDbContext : IdentityDbContext<IdentityUserChange> // for changing identity relations
+    public class AppDbContext : IdentityDbContext<IdentityUserChange> // for changing identity relations
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -32,7 +32,11 @@ namespace Data.Context
         {
             base.OnModelCreating(modelBuilder); // important for identity change
 
+            modelBuilder.Entity<CategoryToProduct>().HasKey(p => new { p.ProductId, p.CategoryId }); // many to many 
+            modelBuilder.Entity<FavoriteToProduct>().HasKey(p => new { p.ProductId, p.FavoriteListId }); // many to many
 
+            modelBuilder.Entity<Item>().Property(p => p.Price).HasColumnType("Money");  // for price 
+            modelBuilder.Entity<OrderDetail>().Property(p => p.Price).HasColumnType("Money");
         }
     }
 }
