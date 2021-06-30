@@ -17,5 +17,9 @@ namespace Domain.Models
         public int FavoriteListId { get; set; }
         [ForeignKey("FavoriteListId")]
         public FavoriteList FavoriteList { get; set; }
+
+        public int RatingId { get; set; }
+        [ForeignKey("RatingId")]
+        public Rating Rating { get; set; }
     }
 }

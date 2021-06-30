@@ -13,5 +13,8 @@ namespace Domain.Models
         public int Id { get; set; }
 
         //relations
+        public int RatingDetail { get; set; }
+        public ICollection<RatingDetail> RatingDetails { get; set; }
+        public IdentityUserChange IdentityUserChange { get; set; }
     }
 }
