@@ -13,5 +13,9 @@ namespace Domain.Models
         public DateTime DateTime { get; set; }
         public bool IsShow { get; set; }
 
+        //relations
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
+
     }
 }

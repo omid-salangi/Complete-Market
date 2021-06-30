@@ -21,6 +21,6 @@ namespace Domain.Models
         public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
         public int ItemId { get; set; }
         public Item Item { get; set; }
-
+        public ICollection<Comments> Comments { get; set; }
     }
 }
