@@ -37,6 +37,7 @@ namespace MVC
 
 
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
 
         }
@@ -65,6 +66,7 @@ namespace MVC
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
