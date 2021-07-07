@@ -9,12 +9,12 @@ namespace Domain.Interface
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetallProducts();
-        Product GetProduct(int productid);
-        void ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price);
-        void DeleteProduct(int productId);
-        void AddProduct(string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price);
-        int MeanOfRating(int product);
+        Task<IEnumerable<Product>> GetallProducts();
+        Task<Product> GetProduct(int productid);
+        Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price);
+        Task DeleteProduct(int productId);
+        Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price);
+        Task<int> MeanOfRating(int product);
 
 
     }

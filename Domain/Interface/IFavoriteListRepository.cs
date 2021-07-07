@@ -9,10 +9,10 @@ namespace Domain.Interface
 {
     public interface IFavoriteListRepository
     {
-        IEnumerable<FavoriteList> GetAllFavorites(string userid);
-        FavoriteList GetOneFavorite(int productid);
-        void AddFavorite(string user, int productid);
-        void DeleteFavorite(int Favoriteid);
+        Task<IEnumerable<FavoriteList>> GetAllFavorites(string userid);
+        Task<FavoriteList> GetOneFavorite(int productid);
+        Task AddFavorite(string user, int productid);
+        Task DeleteFavorite(int Favoriteid);
 
 
     }

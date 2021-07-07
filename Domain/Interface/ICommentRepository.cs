@@ -9,11 +9,11 @@ namespace Domain.Interface
 {
    public  interface ICommentRepository
    {
-       IEnumerable<Comments> GetCommentsByProduct(int id);
-       void IsShowComment(int commentid);
-       void DeleteComment(int id);
-       void AddComment(string userid, int productid, string comment);
-       void EditComment(int commentid, string comment);
+       Task<IEnumerable<Comments>> GetCommentsByProduct(int id);
+       Task IsShowComment(int commentid);
+       Task DeleteComment(int id);
+       Task AddComment(string userid, int productid, string comment);
+       Task EditComment(int commentid, string comment);
 
    }
 }

@@ -10,12 +10,12 @@ namespace Domain.Interface
 {
     public interface ICategoryRepository
     {
-        IEnumerable<Category> GetAllCategories();
-        IEnumerable<ShowCategorySideBarViewModel> GetCategorySideBar();
-        void AddCategory(string name, string description);
-        void DeleteCategory(int id);
-        void EditCategory(int id, string name, string description);
-        IEnumerable<ShowProductsByCategoryViewModel> ShowProductsByCategory(int id);
+        Task<IEnumerable<Category>> GetAllCategories();
+        Task<IEnumerable<ShowCategorySideBarViewModel>> GetCategorySideBar();
+        Task AddCategory(string name, string description);
+        Task DeleteCategory(int id);
+        Task EditCategory(int id, string name, string description);
+        Task<IEnumerable<ShowProductsByCategoryViewModel>>  ShowProductsByCategory(int id);
 
 
     }

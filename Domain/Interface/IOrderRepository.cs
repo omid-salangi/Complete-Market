@@ -8,12 +8,12 @@ namespace Domain.Interface
 {
    public interface IOrderRepository
    {
-       int GetCurrentOrder(string userid);
-       void AddOrder(string userid);
-       void DeleteOrder(int orderid);
-       void AddOrderDetail(int orderid, int count);
-       void deleteOrderDetail(int orderdetail);
-       void changeCountOfOrderDetail(int orderdetail, int count);
+       Task<int> GetCurrentOrder(string userid);
+       Task AddOrder(string userid);
+       Task DeleteOrder(int orderid);
+       Task AddOrderDetail(int orderid, int count);
+       Task deleteOrderDetail(int orderdetail);
+       Task changeCountOfOrderDetail(int orderdetail, int count);
 
    }
 

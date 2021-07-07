@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.ViewModel;
@@ -20,7 +21,7 @@ namespace Data.Repository
 
       public async Task AddCategory(string name, string description)
       {
-          throw new System.NotImplementedException();
+          
       }
 
       public async Task DeleteCategory(int id)
