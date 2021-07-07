@@ -10,27 +10,27 @@ namespace Data.Repository
 {
     public class CommentRepository:ICommentRepository
     {
-        public Task<IEnumerable<Comments>> GetCommentsByProduct(int id)
+        public async Task<IEnumerable<Comments>> GetCommentsByProduct(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task IsShowComment(int commentid)
+        public async Task IsShowComment(int commentid)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteComment(int id)
+        public async Task DeleteComment(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddComment(string userid, int productid, string comment)
+        public async Task AddComment(string userid, int productid, string comment)
         {
             throw new NotImplementedException();
         }
 
-        public Task EditComment(int commentid, string comment)
+        public async Task EditComment(int commentid, string comment)
         {
             throw new NotImplementedException();
         }

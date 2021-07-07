@@ -10,34 +10,34 @@ namespace Data.Repository
 {
    public class ProductRepository:IProductRepository
     {
-        public Task<IEnumerable<Product>> GetallProducts()
+        public async Task<IEnumerable<Product>> GetallProducts()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Product> GetProduct(int productid)
+        public async Task<Product> GetProduct(int productid)
         {
             throw new NotImplementedException();
         }
 
-        public Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,
+        public async Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,
             int countitem, double price)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteProduct(int productId)
+        public async Task DeleteProduct(int productId)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription, int countitem,
+        public async Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription, int countitem,
             double price)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> MeanOfRating(int product)
+        public async Task<int> MeanOfRating(int product)
         {
             throw new NotImplementedException();
         }

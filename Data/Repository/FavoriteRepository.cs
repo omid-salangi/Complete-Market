@@ -10,22 +10,22 @@ namespace Data.Repository
 {
     public class FavoriteRepository:IFavoriteListRepository
     {
-        public Task<IEnumerable<FavoriteList>> GetAllFavorites(string userid)
+        public async Task<IEnumerable<FavoriteList>> GetAllFavorites(string userid)
         {
             throw new NotImplementedException();
         }
 
-        public Task<FavoriteList> GetOneFavorite(int productid)
+        public async Task<FavoriteList> GetOneFavorite(int productid)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddFavorite(string user, int productid)
+        public async Task AddFavorite(string user, int productid)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteFavorite(int Favoriteid)
+        public async Task DeleteFavorite(int Favoriteid)
         {
             throw new NotImplementedException();
         }

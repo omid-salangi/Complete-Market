@@ -9,12 +9,12 @@ namespace Data.Repository
 {
      public class RatingRepository:IRatingRepository
     {
-        public Task AddRatingToaProduct(string user, int productid, int rating)
+        public async Task AddRatingToaProduct(string user, int productid, int rating)
         {
             throw new NotImplementedException();
         }
 
-        public Task ChangeRatingOfaProduct(string user, int productid, int rating)
+        public async Task ChangeRatingOfaProduct(string user, int productid, int rating)
         {
             throw new NotImplementedException();
         }

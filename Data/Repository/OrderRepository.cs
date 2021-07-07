@@ -9,32 +9,32 @@ namespace Data.Repository
 {
     public class OrderRepository:IOrderRepository
     {
-        public Task<int> GetCurrentOrder(string userid)
+        public async Task<int> GetCurrentOrder(string userid)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddOrder(string userid)
+        public async Task AddOrder(string userid)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteOrder(int orderid)
+        public async Task DeleteOrder(int orderid)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddOrderDetail(int orderid, int count)
+        public async Task AddOrderDetail(int orderid, int count)
         {
             throw new NotImplementedException();
         }
 
-        public Task deleteOrderDetail(int orderdetail)
+        public async Task deleteOrderDetail(int orderdetail)
         {
             throw new NotImplementedException();
         }
 
-        public Task changeCountOfOrderDetail(int orderdetail, int count)
+        public async Task changeCountOfOrderDetail(int orderdetail, int count)
         {
             throw new NotImplementedException();
         }

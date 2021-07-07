@@ -13,6 +13,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using IOC;
 
 namespace MVC
 {
@@ -38,7 +39,7 @@ namespace MVC
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-
+            RegisterServices(services);
 
         }
 
@@ -71,6 +72,11 @@ namespace MVC
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public static void RegisterServices(IServiceCollection service)
+        {
+            DependencyContainer.RegisterServices(service);
         }
     }
 }
