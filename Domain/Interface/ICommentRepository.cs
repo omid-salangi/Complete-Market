@@ -9,7 +9,7 @@ namespace Domain.Interface
 {
    public  interface ICommentRepository
    {
-       IEnumerable<Comments> getCommentsByProduct(int id);
+       IEnumerable<Comments> GetCommentsByProduct(int id);
        void IsShowComment(int commentid);
        void DeleteComment(int id);
        void AddComment(string userid, int productid, string comment);

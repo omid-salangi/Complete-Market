@@ -17,7 +17,7 @@ namespace Domain.Models
         
         //relations
         public IdentityUserChange IdentityUserChange { get; set; }
+        public ICollection<FavoriteToProduct> FavoriteToProducts { get; set; }
 
-        
     }
 }
