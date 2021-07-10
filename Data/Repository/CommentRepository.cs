@@ -24,14 +24,14 @@ namespace Data.Repository
             Comments temp = await _context.Comments.FindAsync(commentid);
             temp.IsShow = true;
             _context.Comments.Update(temp);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         public async Task DeleteComment(int id)
         {
             Comments temp = await _context.Comments.FindAsync(id);
             _context.Comments.Remove(temp);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         public async Task AddComment(string userid,int productid,string comment)
@@ -43,17 +43,17 @@ namespace Data.Repository
                 DateTime = DateTime.Now
             };
             _context.Comments.Add(temp);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             temp.IdentityUserChangeId = userid;
             temp.ProductId = productid;
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         public async Task EditComment(int commentid, string comment)
         {
             Comments temp = await _context.Comments.FindAsync(commentid);
                 temp.Comment = comment;
-                await _context.SaveChangesAsync();
+                 _context.SaveChanges();
 
         }
     }

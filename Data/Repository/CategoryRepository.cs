@@ -6,6 +6,8 @@ using Data.Context;
 using Domain.Interface;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Data.Repository
 {
@@ -32,15 +34,19 @@ namespace Data.Repository
               Name = name,
               Description = description
           };
-          _context.Categories.Add(temp);
-          await _context.SaveChangesAsync();
+           _context.Categories.Add(temp);
+
+          _context.SaveChanges();
+
+
+
       }
 
-      public async Task DeleteCategory(int id)
+        public async Task DeleteCategory(int id)
       {
           Category temp = await _context.Categories.FindAsync(id);
           _context.Categories.Remove(temp);
-          await  _context.SaveChangesAsync();
+           _context.SaveChanges();
 
 
       }
@@ -50,7 +56,7 @@ namespace Data.Repository
           Category temp = await _context.Categories.FindAsync(id);
           temp.Name = name;
           temp.Description = description;
-          await _context.SaveChangesAsync();
+           _context.SaveChanges();
       }
 
       public async Task<Category> GetCategory(int id)

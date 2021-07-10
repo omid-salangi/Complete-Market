@@ -11,7 +11,7 @@ namespace Domain.Interface
     {
         Task<IEnumerable<FavoriteList>> GetAllFavorites(string userid);
         Task AddFavorite(string user, int productid);
-        Task DeleteFavorite(int Favoriteid);
+        Task DeleteFavorite(string user, int productid);
 
 
     }

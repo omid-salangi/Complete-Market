@@ -6,20 +6,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.ViewModel;
+using Domain.Interface;
 
 namespace MVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ICategoryRepository _categoryRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,ICategoryRepository repository)
         {
             _logger = logger;
+            _categoryRepository = repository;
         }
 
         public IActionResult Index()
         {
+            _categoryRepository.AddCategory("this is test", "this is a test");
             return View();
         }
 

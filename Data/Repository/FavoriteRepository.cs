@@ -43,7 +43,7 @@ namespace Data.Repository
                     FavoriteListId = temp.Id
                 };
                 _context.FavoriteToProducts.Add(ftemp);
-                await _context.SaveChangesAsync();
+                 _context.SaveChanges();
 
             }
             else
@@ -54,7 +54,7 @@ namespace Data.Repository
                     IdentityUserChange = itemp
                 };
                 _context.FavoriteLists.AddAsync(newftemp);
-                await _context.SaveChangesAsync();
+                 _context.SaveChanges();
 
                      FavoriteToProduct ftemp = new FavoriteToProduct()
                 {
@@ -62,7 +62,7 @@ namespace Data.Repository
                     FavoriteListId = newftemp.Id
                 };
                 _context.FavoriteToProducts.Add(ftemp);
-                await _context.SaveChangesAsync();
+                 _context.SaveChanges();
             }
         }
 
@@ -74,7 +74,7 @@ namespace Data.Repository
                FavoriteToProduct ftemp = await _context.FavoriteToProducts
                    .Where(f => f.FavoriteListId == temp.Id && f.ProductId == productid).FirstAsync();
                _context.FavoriteToProducts.Remove(ftemp);
-               await _context.SaveChangesAsync();
+               _context.SaveChanges();
            }
            else
            {
