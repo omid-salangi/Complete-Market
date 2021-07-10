@@ -9,8 +9,7 @@ namespace Domain.Interface
 {
    public  interface ICommentRepository
    {
-       Task<IEnumerable<Comments>> GetCommentsByProduct(int id);
-       Task IsShowComment(int commentid);
+       Task ShowComment(int commentid);
        Task DeleteComment(int id);
        Task AddComment(string userid, int productid, string comment);
        Task EditComment(int commentid, string comment);

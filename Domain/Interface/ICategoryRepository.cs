@@ -11,12 +11,10 @@ namespace Domain.Interface
     public interface ICategoryRepository
     {
         Task<IEnumerable<Category>> GetAllCategories();
-        Task<IEnumerable<ShowCategorySideBarViewModel>> GetCategorySideBar();
         Task AddCategory(string name, string description);
         Task DeleteCategory(int id);
         Task EditCategory(int id, string name, string description);
-        Task<IEnumerable<ShowProductsByCategoryViewModel>>  ShowProductsByCategory(int id);
-
+        Task<Category> GetCategory(int id);
 
     }
 }
