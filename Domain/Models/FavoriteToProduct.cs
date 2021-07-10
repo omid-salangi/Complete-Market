@@ -11,7 +11,7 @@ namespace Domain.Models
         public int ProductId { get; set; }
         public int FavoriteListId { get; set; }
 
-        public ICollection<Product> Products { get; set; }
-        public ICollection<FavoriteList> FavoriteLists { get; set; }    
+        public Product Products { get; set; }
+        public FavoriteList FavoriteLists { get; set; }    
     }
 }
