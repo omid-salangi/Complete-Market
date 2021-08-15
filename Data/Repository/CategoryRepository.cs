@@ -34,7 +34,7 @@ namespace Data.Repository
               Name = name,
               Description = description
           };
-           _context.Categories.Add(temp);
+           await _context.Categories.AddAsync(temp);
 
           _context.SaveChanges();
 

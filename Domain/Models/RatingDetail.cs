@@ -10,13 +10,15 @@ namespace Domain.Models
 {
     public class RatingDetail
     {
-        [Key] public int Id { get; set; }
+        [Key] 
+        public int Id { get; set; }
 
         public int RatingNumber { get; set; }
 
         //relations
         public int ProductId { get; set; }
-        [ForeignKey("ProductId")] public Product Product { get; set; }
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; }
 
         public int RatingId { get; set; }
         [ForeignKey("RatingId")]
