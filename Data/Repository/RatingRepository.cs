@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Data.Context;
 using Domain.Interface;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository
 {
@@ -37,12 +38,27 @@ namespace Data.Repository
                rdtemp.Id = ratingtemp.Id;
                _context.SaveChanges();
             }
-
+            return;
+            
         }
 
         public async Task ChangeRatingOfaProduct(string user, int productid, int rating)
         {
             IdentityUserChange tempuser = await _context.Users.FindAsync(user);
+            if (tempuser.RatingId == -1)
+            {
+                AddRatingToaProduct(user, productid, rating);
+                return;
+            }
+            else
+            {
+                int rat = tempuser.RatingId;
+                RatingDetail temp =await _context.RatingDetails.Where(n => n.RatingId == rat && n.ProductId==productid).FirstOrDefaultAsync();
+                temp.RatingNumber = rating;
+                _context.SaveChanges();
+
+            }
+          
 
         }
     }
