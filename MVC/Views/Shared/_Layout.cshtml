@@ -41,7 +41,7 @@
                     <a class="nav-link" href="#">ورود</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-action="Register" asp-controller="Home">ثبت نام</a>
+                    <a class="nav-link" asp-action="Register" asp-controller="Accounts">ثبت نام</a>
                 </li>
 
             </ul>
@@ -85,17 +85,6 @@
                             </ul>
                         </div>
                     </li>
-                    <!--       <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                            Orders
-                        </button>
-                        <div class="collapse" id="orders-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="#" class="link-dark rounded">New</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    --->
                     <li class="border-top my-3"></li>
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
@@ -104,7 +93,7 @@
                         <div class="collapse" id="account-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li><a href="#" class="link-dark rounded">ورود</a></li>
-                                <li><a href="#" class="link-dark rounded">ثبت نام</a></li>
+                                <li><a asp-action="Register" asp-controller="Accounts" class="link-dark rounded">ثبت نام</a></li>
                                 <li><a href="#" class="link-dark rounded">ویرایش</a></li>
                                 <li><a href="#" class="link-dark rounded">خروج</a></li>
                             </ul>
@@ -113,12 +102,13 @@
                 </ul>
             </div>
         </div>
+        <div class="col-12 col-md-9">
+            @RenderBody()
+        </div>
     </div>
 
 </div>
-<div class="col-12 col-md-9">
-    @RenderBody()
-</div>
+
 <button onclick="topFunction()" id="myBtn" title="Go to top">بالا</button>
 
 <footer class="container-fluid py-3 text-center">

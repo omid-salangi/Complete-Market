@@ -14,8 +14,8 @@ namespace Domain.Models
         //relations
         public ICollection<Comments> Comments { get; set; }
         public ICollection<Order> Orders { get; set; }
+        [ForeignKey("FavoriteList")]
         public int FavoriteListId { get; set; }
-        [ForeignKey("FavoriteListId")]
         public FavoriteList FavoriteList { get; set; }
 
         public int RatingId { get; set; }

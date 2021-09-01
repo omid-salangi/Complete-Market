@@ -17,18 +17,17 @@ namespace Application.ViewModel
         public string Email { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(50)]
+        [MinLength(8)]
         [DataType(DataType.Password)]
         [Display(Name = "رمز عبور")]
         public string Password { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(50)]
+        [MinLength(8)]
         [DataType(DataType.Password)]
+        [Compare("Password")]
         [Display(Name = "تکرار رمز ورود")]
         public string RePassword { get; set; }
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
-        [DataType(DataType.PhoneNumber)]
-        [Display(Name = "شماره تلفن")]
-        public string phonenumber { get; set; }
 
     }
 }
