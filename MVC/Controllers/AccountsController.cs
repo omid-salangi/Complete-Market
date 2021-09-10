@@ -12,8 +12,10 @@ namespace MVC.Controllers
     public class AccountsController : Controller
     {
         private readonly UserManager<IdentityUserChange> _userManager;
-        public AccountsController(UserManager<IdentityUserChange> userManager)
+        private readonly SignInManager<IdentityUserChange> _signInManager;
+        public AccountsController(UserManager<IdentityUserChange> userManager , SignInManager<IdentityUserChange> signInManager)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
         }
         [HttpGet]
@@ -39,7 +41,7 @@ namespace MVC.Controllers
           var result =  await  _userManager.CreateAsync(newuser, register.Password);
           if (result.Succeeded)
           {
-            RedirectToAction("SuccessRegister");
+           return RedirectToAction("SuccessRegister");
           }
 
           foreach (var error in result.Errors)
@@ -58,6 +60,30 @@ namespace MVC.Controllers
         public async Task<IActionResult> Login()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+          var res= await _signInManager.PasswordSignInAsync(model.username, model.password, model.rememberme, true);
+
+          if (res.Succeeded)
+          {
+              return RedirectToAction("index", "Home");
+          }
+
+          if (res.IsLockedOut)
+          {
+              ViewData["errormessage"] =
+                  "شما بیشتر از 5 بار رمز را اشتباه وارد کردید و اکانت شما قفل شده است  پنج دقیقه دگیر تلاش کنید.";
+              return View(model);
+          }
+          ModelState.AddModelError("","نام کاربری یا رمز عبور اشتباست.");
+          return View();
         }
     }
 }

@@ -4,6 +4,10 @@
 }
 <div>
     <form asp-controller="Accounts" asp-action="Login" method="post">
+        @if (ViewData["errormessage"] != null)
+        {
+            <div class="text-danger">@ViewData["errormessage"]</div>
+        }
         <div class="mb-3">
             <label asp-for="username" class="form-label"></label>
             <input asp-for="username" class="form-control" aria-describedby="emailHelp">
@@ -18,6 +22,12 @@
             <input asp-for="rememberme" class="form-check-input">
             <label class="form-check-label" asp-for="rememberme"></label>
         </div>
-        <button type="submit" class="btn btn-primary">ثبت نام</button>
+        <button type="submit" class="btn btn-primary">ورود</button>
     </form>
 </div>
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
