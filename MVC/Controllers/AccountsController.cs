@@ -85,5 +85,11 @@ namespace MVC.Controllers
           ModelState.AddModelError("","نام کاربری یا رمز عبور اشتباست.");
           return View();
         }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("index", "Home");
+        }
     }
 }
