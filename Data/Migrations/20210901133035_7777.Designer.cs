@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210630220203_hi")]
-    partial class hi
+    [Migration("20210901133035_7777")]
+    partial class _7777
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Domain.Models.Category", b =>
@@ -87,7 +87,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Models.FavoriteList", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("FavoriteListId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -95,15 +95,7 @@ namespace Data.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FavoriteToProductFavoriteListId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FavoriteToProductProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FavoriteToProductProductId", "FavoriteToProductFavoriteListId");
+                    b.HasKey("FavoriteListId");
 
                     b.ToTable("FavoriteLists");
                 });
@@ -117,6 +109,8 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ProductId", "FavoriteListId");
+
+                    b.HasIndex("FavoriteListId");
 
                     b.ToTable("FavoriteToProducts");
                 });
@@ -313,9 +307,6 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RatingDetail")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Ratings");
@@ -344,24 +335,6 @@ namespace Data.Migrations
                     b.HasIndex("RatingId");
 
                     b.ToTable("RatingDetails");
-                });
-
-            modelBuilder.Entity("FavoriteToProductProduct", b =>
-                {
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FavoriteToProductsProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FavoriteToProductsFavoriteListId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsId", "FavoriteToProductsProductId", "FavoriteToProductsFavoriteListId");
-
-                    b.HasIndex("FavoriteToProductsProductId", "FavoriteToProductsFavoriteListId");
-
-                    b.ToTable("FavoriteToProductProduct");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -531,11 +504,23 @@ namespace Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.FavoriteList", b =>
+            modelBuilder.Entity("Domain.Models.FavoriteToProduct", b =>
                 {
-                    b.HasOne("Domain.Models.FavoriteToProduct", null)
-                        .WithMany("FavoriteLists")
-                        .HasForeignKey("FavoriteToProductProductId", "FavoriteToProductFavoriteListId");
+                    b.HasOne("Domain.Models.FavoriteList", "FavoriteLists")
+                        .WithMany("FavoriteToProducts")
+                        .HasForeignKey("FavoriteListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Product", "Products")
+                        .WithMany("FavoriteToProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FavoriteLists");
+
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Models.IdentityUserChange", b =>
@@ -615,21 +600,6 @@ namespace Data.Migrations
                     b.Navigation("Rating");
                 });
 
-            modelBuilder.Entity("FavoriteToProductProduct", b =>
-                {
-                    b.HasOne("Domain.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.FavoriteToProduct", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteToProductsProductId", "FavoriteToProductsFavoriteListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -688,12 +658,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Models.FavoriteList", b =>
                 {
-                    b.Navigation("IdentityUserChange");
-                });
+                    b.Navigation("FavoriteToProducts");
 
-            modelBuilder.Entity("Domain.Models.FavoriteToProduct", b =>
-                {
-                    b.Navigation("FavoriteLists");
+                    b.Navigation("IdentityUserChange");
                 });
 
             modelBuilder.Entity("Domain.Models.IdentityUserChange", b =>
@@ -718,6 +685,8 @@ namespace Data.Migrations
                     b.Navigation("CategoryToProducts");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("FavoriteToProducts");
 
                     b.Navigation("RatingDetails");
                 });

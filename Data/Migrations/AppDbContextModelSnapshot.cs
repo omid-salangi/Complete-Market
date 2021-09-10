@@ -85,7 +85,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Models.FavoriteList", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("FavoriteListId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -93,7 +93,7 @@ namespace Data.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("FavoriteListId");
 
                     b.ToTable("FavoriteLists");
                 });

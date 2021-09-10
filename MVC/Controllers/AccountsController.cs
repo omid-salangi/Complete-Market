@@ -29,7 +29,7 @@ namespace MVC.Controllers
             {
                 return View(register);
             }
-
+            
             IdentityUserChange newuser = new IdentityUserChange()
             {
                 UserName = register.Email.ToLower(),

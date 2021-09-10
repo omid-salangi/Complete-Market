@@ -33,14 +33,14 @@ namespace Data.Repository
             if (res == true)
             {
                 FavoriteList temp = await _context.FavoriteLists.Where(f => f.IdentityUserChange.Id == user).FirstAsync();
-                if ( await _context.FavoriteToProducts.AnyAsync(f => f.FavoriteListId == temp.Id && f.ProductId == productid))
+                if ( await _context.FavoriteToProducts.AnyAsync(f => f.FavoriteListId == temp.FavoriteListId && f.ProductId == productid))
                 {
                     return;
                 }
                 FavoriteToProduct ftemp = new FavoriteToProduct()
                 {
                     ProductId = productid,
-                    FavoriteListId = temp.Id
+                    FavoriteListId = temp.FavoriteListId
                 };
                 _context.FavoriteToProducts.Add(ftemp);
                  _context.SaveChanges();
@@ -59,7 +59,7 @@ namespace Data.Repository
                      FavoriteToProduct ftemp = new FavoriteToProduct()
                 {
                     ProductId = productid,
-                    FavoriteListId = newftemp.Id
+                    FavoriteListId = newftemp.FavoriteListId
                 };
                 _context.FavoriteToProducts.Add(ftemp);
                  _context.SaveChanges();
@@ -69,10 +69,10 @@ namespace Data.Repository
         public async Task DeleteFavorite(string user ,int productid)
         {
            FavoriteList temp= await _context.FavoriteLists.Where(f => f.IdentityUserChange.Id == user).FirstAsync();
-           if (await _context.FavoriteToProducts.AnyAsync(P=> P.FavoriteListId==temp.Id && P.ProductId == productid))
+           if (await _context.FavoriteToProducts.AnyAsync(P=> P.FavoriteListId==temp.FavoriteListId && P.ProductId == productid))
            {
                FavoriteToProduct ftemp = await _context.FavoriteToProducts
-                   .Where(f => f.FavoriteListId == temp.Id && f.ProductId == productid).FirstAsync();
+                   .Where(f => f.FavoriteListId == temp.FavoriteListId && f.ProductId == productid).FirstAsync();
                _context.FavoriteToProducts.Remove(ftemp);
                _context.SaveChanges();
            }
@@ -81,5 +81,21 @@ namespace Data.Repository
                return;
            }
         }
+
+        public async Task<int> AddList()
+        {
+            FavoriteList favorite = new FavoriteList()
+            {
+                Count = 0
+
+
+
+
+            };
+            _context.FavoriteLists.Add(favorite);
+            _context.SaveChanges();
+            return favorite.FavoriteListId;
+        }
+
     }
 }

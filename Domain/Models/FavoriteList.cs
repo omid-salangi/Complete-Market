@@ -11,10 +11,12 @@ namespace Domain.Models
      public class FavoriteList
     {
         [Key]           
-        public int Id { get; set; }
+        public int FavoriteListId { get; set; }
 
         public int Count { get; set; }
-        
+        [ForeignKey("IdentityUserChange")]
+        public int IdentityUserChangeId { get; set; } 
+
         //relations
         public IdentityUserChange IdentityUserChange { get; set; }
         public ICollection<FavoriteToProduct> FavoriteToProducts { get; set; }
