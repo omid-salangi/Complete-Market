@@ -16,7 +16,7 @@ namespace Domain.Models
         public ICollection<Order> Orders { get; set; }
 
         // navigation property
-        public Rating Rating { get; set; }
+        public ICollection<Rating> Rating { get; set; }
         public FavoriteList FavoriteList { get; set; }
     }
 }

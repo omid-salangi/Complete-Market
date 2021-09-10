@@ -12,10 +12,13 @@ namespace Domain.Models
     {
         [Key]
         public int Id { get; set; }
+        public int RatingNumber { get; set; }
         [ForeignKey("IdentityUserChange")]
         public string IdentityUserChangeId { get; set; }
-        //relations
-        public ICollection<RatingDetail> RatingDetails { get; set; }
+        public int ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; }
         public IdentityUserChange IdentityUserChange { get; set; }
     }
 }
