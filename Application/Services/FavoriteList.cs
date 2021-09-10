@@ -8,9 +8,6 @@ namespace Application.Services
 {
     public class FavoriteList
     {
-        public async Task<int> AddFavoriteList()
-        {
-
-        }
+      
     }
 }

@@ -13,7 +13,7 @@ namespace Domain.Models
         [Key]
         public int Id { get; set; }
         [ForeignKey("IdentityUserChange")]
-        public int IdentityUserChangeId { get; set; }
+        public string IdentityUserChangeId { get; set; }
         //relations
         public ICollection<RatingDetail> RatingDetails { get; set; }
         public IdentityUserChange IdentityUserChange { get; set; }

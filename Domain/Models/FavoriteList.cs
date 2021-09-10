@@ -15,7 +15,7 @@ namespace Domain.Models
 
         public int Count { get; set; }
         [ForeignKey("IdentityUserChange")]
-        public int IdentityUserChangeId { get; set; } 
+        public string IdentityUserChangeId { get; set; } 
 
         //relations
         public IdentityUserChange IdentityUserChange { get; set; }
