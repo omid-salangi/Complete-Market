@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Data.Repository;
 using Domain.Interface;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Services;
 
 namespace IOC
 {
@@ -14,7 +15,7 @@ namespace IOC
         public static void RegisterServices(IServiceCollection service)
         {
             //application layer
-
+            service.AddScoped<IMessageSender, MessageSender>();
             //data layer
             service.AddScoped<ICategoryRepository, CategoryRepository>();
             service.AddScoped<ICommentRepository, CommentRepository>();
