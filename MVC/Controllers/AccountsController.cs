@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Application.ViewModel;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft;
+
 
 namespace MVC.Controllers
 {
@@ -76,6 +78,7 @@ namespace MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model,string returnUrl= null)
         {
+            ViewData["returnUrl"] = returnUrl; ///we set it again because if page refreshes return url will be deleted
             if (_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction("index", "Home");
@@ -112,6 +115,19 @@ namespace MVC.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("index", "Home");
+        }
+
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            IdentityUserChange user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json("ایمیل مورد نظر موجود می باشد.");
+            }
         }
     }
 }

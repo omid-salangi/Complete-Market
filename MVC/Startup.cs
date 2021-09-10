@@ -33,8 +33,20 @@ namespace MVC
             {
                 options.UseSqlServer(Configuration.GetConnectionString("MarketDbConnection"));
             });
-            services.AddIdentity<IdentityUserChange, IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<IdentityUserChange, IdentityRole>(options =>// we can add new setting in identity
+                {
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireUppercase = false;
+                    options.User.RequireUniqueEmail = true;
+                    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+*/!#$%^&*(){}[]\\?\"':;,";
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15); // lock account after 5 times wrong password input
+
+
+
+                }).AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders()
+                .AddErrorDescriber<TranslatePersian.TranslatePersian>();
 
 
             services.AddControllersWithViews();

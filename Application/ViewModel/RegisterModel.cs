@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
+
 
 namespace Application.ViewModel
 {
@@ -13,7 +15,8 @@ namespace Application.ViewModel
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(250)]
         [EmailAddress]
-        [Display(Name ="ایمیل")]
+        [Display(Name = "ایمیل")]
+        [Remote("IsEmailInUse","Accounts")]
         public string Email { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(50)]
@@ -25,7 +28,7 @@ namespace Application.ViewModel
         [MaxLength(50)]
         [MinLength(8)]
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
         [Display(Name = "تکرار رمز ورود")]
         public string RePassword { get; set; }
 
