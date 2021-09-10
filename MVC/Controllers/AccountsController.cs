@@ -21,16 +21,22 @@ namespace MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("index","Home");
+            }
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel register)
         {
             if (!ModelState.IsValid)
             {
                 return View(register);
             }
+
             
             IdentityUserChange newuser = new IdentityUserChange()
             {
@@ -57,13 +63,23 @@ namespace MVC.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Login()
-        {
+        public async Task<IActionResult> Login(string returnUrl=null)
+        { if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("index","Home");
+            }
+
+            ViewData["returnUrl"] = returnUrl;  // for return to main page after login and we continue this Procedures in post login
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model,string returnUrl= null)
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("index", "Home");
+            }
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -73,6 +89,11 @@ namespace MVC.Controllers
 
           if (res.Succeeded)
           {
+              if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl) /* for security */ )
+              {
+                  return Redirect(returnUrl);
+                  
+              }
               return RedirectToAction("index", "Home");
           }
 
@@ -85,7 +106,8 @@ namespace MVC.Controllers
           ModelState.AddModelError("","نام کاربری یا رمز عبور اشتباست.");
           return View();
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken] // check for logout from our site
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();

@@ -3,19 +3,19 @@
     ViewData["title"] = "ورود";
 }
 <div>
-    <form asp-controller="Accounts" asp-action="Login" method="post">
+    <form asp-controller="Accounts" asp-action="Login" asp-route-returnUrl="@ViewData["returnUrl"]" method="post">
         @if (ViewData["errormessage"] != null)
         {
             <div class="text-danger">@ViewData["errormessage"]</div>
         }
         <div class="mb-3">
             <label asp-for="username" class="form-label"></label>
-            <input asp-for="username" class="form-control" aria-describedby="emailHelp">
+            <input asp-for="username" class="form-control">
             <span asp-validation-for="username" class="form-text"></span>
         </div>
         <div class="mb-3">
             <label asp-for="password" class="form-label"></label>
-            <input asp-for="password" class="form-control" aria-describedby="emailHelp">
+            <input asp-for="password" class="form-control">
             <span asp-validation-for="password" class="form-text"></span>
         </div>
         <div class="mb-3 form-check">

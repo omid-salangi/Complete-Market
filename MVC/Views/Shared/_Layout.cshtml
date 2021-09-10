@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Domain.Models
+
+@inject SignInManager<IdentityUserChange> signInManager
+<!DOCTYPE html>
 <html lang="fa-ir" dir="rtl">
 <head>
     <meta charset="utf-8" />
@@ -37,18 +41,25 @@
 
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="Login" asp-controller="Accounts">ورود</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="Register" asp-controller="Accounts">ثبت نام</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ویرایش</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="LogOut" asp-controller="Accounts">خروج</a>
-                </li>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ویرایش</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="LogOut" asp-controller="Accounts">خروج</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Login" asp-controller="Accounts">ورود</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Register" asp-controller="Accounts">ثبت نام</a>
+                    </li>
+                
+                }
 
             </ul>
         </div>
