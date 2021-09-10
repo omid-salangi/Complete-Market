@@ -15,8 +15,8 @@ namespace Application.ViewModel
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(250)]
         [EmailAddress]
-        [Display(Name = "ایمیل")]
-        [Remote("IsEmailInUse","Accounts")]
+        [Display(Name = "ایمیل")] 
+      //  [Remote("IsEmailInUse","Accounts")]
         public string Email { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(50)]
