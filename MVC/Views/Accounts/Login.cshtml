@@ -1,0 +1,23 @@
+﻿@model LoginModel
+@{
+    ViewData["title"] = "ورود";
+}
+<div>
+    <form asp-controller="Accounts" asp-action="Login" method="post">
+        <div class="mb-3">
+            <label asp-for="username" class="form-label"></label>
+            <input asp-for="username" class="form-control" aria-describedby="emailHelp">
+            <span asp-validation-for="username" class="form-text"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="password" class="form-label"></label>
+            <input asp-for="password" class="form-control" aria-describedby="emailHelp">
+            <span asp-validation-for="password" class="form-text"></span>
+        </div>
+        <div class="mb-3 form-check">
+            <input asp-for="rememberme" class="form-check-input">
+            <label class="form-check-label" asp-for="rememberme"></label>
+        </div>
+        <button type="submit" class="btn btn-primary">ثبت نام</button>
+    </form>
+</div>

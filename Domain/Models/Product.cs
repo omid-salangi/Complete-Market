@@ -27,6 +27,6 @@ namespace Domain.Models
         public Item Item { get; set; }
         public ICollection<Comments> Comments { get; set; }
         public ICollection<FavoriteToProduct> FavoriteToProducts { get; set; }
-        public ICollection<RatingDetail> RatingDetails { get; set; }
+        
     }
 }

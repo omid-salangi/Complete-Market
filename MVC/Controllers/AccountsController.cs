@@ -39,7 +39,7 @@ namespace MVC.Controllers
           var result =  await  _userManager.CreateAsync(newuser, register.Password);
           if (result.Succeeded)
           {
-              RedirectToAction("SuccessRegister","Accounts");
+            RedirectToAction("SuccessRegister");
           }
 
           foreach (var error in result.Errors)
@@ -51,6 +51,11 @@ namespace MVC.Controllers
         }
 
         public async Task<IActionResult> SuccessRegister()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Login()
         {
             return View();
         }
