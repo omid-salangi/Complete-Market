@@ -9,7 +9,5 @@ namespace Domain.Interface
    public interface IRatingRepository
    {
        Task AddRatingToaProduct(string user, int productid,int rating);
-       Task ChangeRatingOfaProduct(string user, int productid, int rating);
-
    }
 }
