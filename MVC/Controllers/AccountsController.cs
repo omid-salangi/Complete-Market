@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Interface;
 using Application.ViewModel;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
@@ -15,10 +16,13 @@ namespace MVC.Controllers
     {
         private readonly UserManager<IdentityUserChange> _userManager;
         private readonly SignInManager<IdentityUserChange> _signInManager;
-        public AccountsController(UserManager<IdentityUserChange> userManager , SignInManager<IdentityUserChange> signInManager)
+        private readonly IMessageSender _messagesender;
+        public AccountsController(UserManager<IdentityUserChange> userManager , SignInManager<IdentityUserChange> signInManager,
+            IMessageSender messageSender)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _messagesender = messageSender;
         }
         [HttpGet]
         public async Task<IActionResult> Register()
@@ -43,13 +47,20 @@ namespace MVC.Controllers
             IdentityUserChange newuser = new IdentityUserChange()
             {
                 UserName = register.Email.ToLower(),
-                Email = register.Email,
-                EmailConfirmed = true
+                Email = register.Email
             };
           var result =  await  _userManager.CreateAsync(newuser, register.Password);
           if (result.Succeeded)
           {
-           return RedirectToAction("SuccessRegister");
+              var emailConfirmationToken =
+                  await _userManager.GenerateEmailConfirmationTokenAsync(newuser);
+              var emailMessage =
+                  Url.Action("ConfirmEmail", "Accounts",
+                      new { username = newuser.UserName, token = emailConfirmationToken },
+                      Request.Scheme);
+              await _messagesender.SendEmailAsync(register.Email, "Email confirmation", emailMessage);
+
+                return RedirectToAction("SuccessRegister");
           }
 
           foreach (var error in result.Errors)
@@ -128,6 +139,17 @@ namespace MVC.Controllers
             {
                 return Json("ایمیل مورد نظر موجود می باشد.");
             }
+        }
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userName,string token)
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(token))
+                return NotFound();
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) return NotFound();
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            return Content(result.Succeeded ? "Email Confirmed" : "Email Not Confirmed");
         }
     }
 }

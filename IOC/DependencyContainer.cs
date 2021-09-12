@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interface;
 using Data.Repository;
-using Domain.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Services;
+using Domain.Interface;
 
 namespace IOC
 {

@@ -12,31 +12,33 @@ namespace Application.Services
     {
         public Task SendEmailAsync(string toEmail, string subject, string message, bool isMessageHtml = false)
         {
-            using (var client = new SmtpClient())
+            SmtpClient client = new SmtpClient();
+
+            client.Host = "smtp.gmail.com";
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential()
             {
+                UserName = "testfordeveloper123@gmail.com",
+                Password = "0938006omid.com"
+            };
 
-                var credentials = new NetworkCredential()
-                {
-                    UserName = "", // without @gmail.com
-                    Password = ""
-                };
+            MailMessage msg = new MailMessage();
 
-                client.Credentials = credentials;
-                client.Host = "smtp.gmail.com";
-                client.Port = 587;
-                client.EnableSsl = true;
+            msg.From = new MailAddress("testfordeveloper123@gmail.com","omid salangi");
+            MailAddress emto = new MailAddress(toEmail);
 
-                using var emailMessage = new MailMessage()
-                {
-                    To = { new MailAddress(toEmail) },
-                    From = new MailAddress(""), // with @gmail.com
-                    Subject = subject,
-                    Body = message,
-                    IsBodyHtml = isMessageHtml
-                };
+            msg.To.Add(emto);
+            msg.Subject = subject;
+            msg.Body = message;
+            msg.Priority = MailPriority.High;
 
-                client.Send(emailMessage);
-            }
+            
+            client.Send(msg);
+            
+            
 
             return Task.CompletedTask;
         }
