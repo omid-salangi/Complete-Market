@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace Application.ViewModel
@@ -16,7 +16,7 @@ namespace Application.ViewModel
         [MaxLength(250)]
         [EmailAddress]
         [Display(Name = "ایمیل")] 
-        [Remote("IsEmailInUse","Accounts",HttpMethod = "POST",AdditionalFields = "_RequestVerificationToken")]
+        [Remote("IsEmailInUse","Accounts",AdditionalFields = "__RequestVerificationToken", HttpMethod = "POST")]
         public string Email { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(50)]

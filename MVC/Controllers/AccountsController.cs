@@ -82,8 +82,14 @@ namespace MVC.Controllers
                 return RedirectToAction("index","Home");
             }
 
-            ViewData["returnUrl"] = returnUrl;  // for return to main page after login and we continue this Procedures in post login
-            return View();
+            var model = new LoginModel()
+            {
+                ReturnUrl  = returnUrl,
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            };
+
+                ViewData["returnUrl"] = returnUrl;  // for return to main page after login and we continue this Procedures in post login
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

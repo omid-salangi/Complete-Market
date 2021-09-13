@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Application.ViewModel
 {
@@ -16,5 +17,8 @@ namespace Application.ViewModel
         public string password { get; set; }
         [Display(Name = "مرا بخاطر بسپار")]
         public bool rememberme { get; set; }
+
+        public string  ReturnUrl { get; set; } // for google login
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
     }
 }

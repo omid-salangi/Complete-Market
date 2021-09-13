@@ -33,6 +33,13 @@ namespace MVC
             {
                 options.UseSqlServer(Configuration.GetConnectionString("MarketDbConnection"));
             });
+
+            services.AddAuthentication().AddGoogle(options =>
+                {
+                    options.ClientId = Configuration["googleapi:clientid"];
+                    options.ClientSecret = Configuration["googleapi:clientsecret"];
+                }
+            );
             services.AddIdentity<IdentityUserChange, IdentityRole>(options =>// we can add new setting in identity
                 {
                     options.Password.RequireNonAlphanumeric = false;
@@ -51,6 +58,11 @@ namespace MVC
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+
+
+
+
             RegisterServices(services);
 
         }
