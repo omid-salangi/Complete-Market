@@ -16,7 +16,7 @@ namespace Application.ViewModel
         [MaxLength(250)]
         [EmailAddress]
         [Display(Name = "ایمیل")] 
-      //  [Remote("IsEmailInUse","Accounts")]
+        [Remote("IsEmailInUse","Accounts",HttpMethod = "POST",AdditionalFields = "_RequestVerificationToken")]
         public string Email { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(50)]

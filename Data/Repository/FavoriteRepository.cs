@@ -87,10 +87,6 @@ namespace Data.Repository
             FavoriteList favorite = new FavoriteList()
             {
                 Count = 0
-
-
-
-
             };
             _context.FavoriteLists.Add(favorite);
             _context.SaveChanges();

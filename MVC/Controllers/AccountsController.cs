@@ -126,8 +126,9 @@ namespace MVC.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("index", "Home");
-        }
-
+        } 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
             IdentityUserChange user = await _userManager.FindByEmailAsync(email);

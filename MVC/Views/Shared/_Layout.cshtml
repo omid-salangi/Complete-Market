@@ -44,11 +44,11 @@
                 @if (signInManager.IsSignedIn(User))
                 {
                     <li class="nav-item">
-                        <a class="nav-link" href="#">ویرایش</a>
+                        <a class="nav-link" href="#">@User.Identity.Name</a>
                     </li>
                     <li class="nav-item">
                         <form asp-action="LogOut" asp-controller="Accounts" method="post">
-                            <button type="submit" class="link-dark rounded">خروج</button>
+                            <button type="submit" class="btn link-dark rounded">خروج</button>
                         </form>
                     </li>
                 }
@@ -113,9 +113,9 @@
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 @if (signInManager.IsSignedIn(User))
                                 {
-                                    <li><a href="#" class="link-dark rounded">ویرایش</a></li>
+                                    <li><a href="#" class="link-dark rounded">@User.Identity.Name</a></li>
                                     <form asp-action="LogOut" asp-controller="Accounts" method="post">
-                                        <button type="submit" class="link-dark rounded">خروج</button>
+                                        <button type="submit" class="btn link-dark rounded">خروج</button>
                                     </form>
                                 }
                                 else
