@@ -9,7 +9,7 @@ namespace Domain.Interface
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetallProducts();
+        Task<IList<Product>> GetallProducts();
         Task<Product> GetProduct(int productid);
         Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price);
         Task DeleteProduct(int productId);

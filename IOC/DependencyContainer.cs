@@ -17,6 +17,7 @@ namespace IOC
         {
             //application layer
             service.AddScoped<IMessageSender, MessageSender>();
+            service.AddScoped<IProductServices, ProductServices>();
             //data layer
             service.AddScoped<ICategoryRepository, CategoryRepository>();
             service.AddScoped<ICommentRepository, CommentRepository>();

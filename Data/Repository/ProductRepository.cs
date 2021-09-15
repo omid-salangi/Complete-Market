@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Data.Context;
 using Domain.Interface;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository
 {
-   public class ProductRepository:IProductRepository
+   public class ProductRepository : IProductRepository
    {
        private AppDbContext _context;
 
@@ -17,9 +18,9 @@ namespace Data.Repository
        {
            _context = context;
        }
-        public async Task<IEnumerable<Product>> GetallProducts()
+        public async Task<IList<Product>> GetallProducts()
         {
-            return _context.Products;
+            return await _context.Products.ToListAsync();
         }
 
         public async Task<Product> GetProduct(int productid)
@@ -66,8 +67,8 @@ namespace Data.Repository
             };
             await _context.Items.AddAsync(item);
             _context.SaveChanges();
-            pro.ItemId = item.Id;
-            _context.SaveChanges();
+            //pro.ItemId = item.Id;
+            //_context.SaveChanges();
         }
 
       
