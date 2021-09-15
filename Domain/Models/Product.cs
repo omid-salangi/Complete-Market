@@ -22,8 +22,6 @@ namespace Domain.Models
 
         // relations
         public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
-        public int ItemId { get; set; }
-        [ForeignKey("ItemId")]
         public Item Item { get; set; }
         public ICollection<Comments> Comments { get; set; }
         public ICollection<FavoriteToProduct> FavoriteToProducts { get; set; }

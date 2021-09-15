@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.ViewModel;
 using Domain.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC.Controllers
 {

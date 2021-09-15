@@ -107,7 +107,7 @@ namespace MVC.Controllers
             }
 
             model.ReturnUrl = returnUrl; // important
-            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();//important 
 
           var res= await _signInManager.PasswordSignInAsync(model.username, model.password, model.rememberme, true);
 
@@ -213,7 +213,7 @@ namespace MVC.Controllers
                     var userName = email;//.Split('@')[0]; if we want use before @ in email address instead of username
                     user = new IdentityUserChange()
                     {
-                        UserName = (userName.Length <= 10 ? userName : userName.Substring(0, 10)),
+                        UserName = userName,//(userName.Length <= 10 ? userName : userName.Substring(0, 10)), for changing username but we use email instead of username.
                         Email = email,
                         EmailConfirmed = true
                     };

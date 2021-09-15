@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.test", "Data.test\Data
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PersianTranlate", "PersianTranlate", "{F474282D-4BB7-4244-BEEC-85BF3A383406}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslatePersian", "TranslatePersian\TranslatePersian.csproj", "{0D35FA52-5AE2-41DE-BA8D-31ABB667B1D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TranslatePersian", "TranslatePersian\TranslatePersian.csproj", "{0D35FA52-5AE2-41DE-BA8D-31ABB667B1D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
