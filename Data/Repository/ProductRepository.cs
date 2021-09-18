@@ -25,7 +25,7 @@ namespace Data.Repository
 
         public async Task<Product> GetProduct(int productid)
         {
-            return await _context.Products.FindAsync(productid);
+            return await _context.Products.FirstOrDefaultAsync(m => m.Id == productid);
         }
 
         public async Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,
@@ -49,7 +49,7 @@ namespace Data.Repository
         }
 
         public async Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription, int countitem,
-            double price)
+            double price,string imgname)
         {
             Product pro = new Product()
             {
@@ -57,18 +57,19 @@ namespace Data.Repository
                 ImgUrl = imgurl,
                 ShortDescription = shortdescription,
                 LongDescription = longdescription,
+                ImgName = imgname
             };
             await _context.Products.AddAsync(pro);
             _context.SaveChanges();
             Item item = new Item()
             {
                 QuantityInStock = countitem,
-                Price = price
+                Price = price,
+                ProductId = pro.Id
             };
             await _context.Items.AddAsync(item);
             _context.SaveChanges();
-            //pro.ItemId = item.Id;
-            //_context.SaveChanges();
+            
         }
 
       

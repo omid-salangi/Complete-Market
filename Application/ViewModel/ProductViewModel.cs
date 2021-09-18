@@ -23,6 +23,11 @@ namespace Application.ViewModel
         public string ImgUrl { get; set; }
 
         public int ProductId { get; set; }
+        [Display(Name = "تعداد موجود")]
+        public int  quantityinstock { get; set; }
+        [Display(Name = "قیمت")]
+        [DataType(DataType.Currency)]
+        public double Price { get; set; }
 
     }
 }

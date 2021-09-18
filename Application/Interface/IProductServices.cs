@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.ViewModel;
+using Domain.Models;
 
 namespace Application.Interface
 {
@@ -11,5 +12,7 @@ namespace Application.Interface
     {
         Task<IList<ProductViewModel>> GetProducts();
         Task CreateProduct(CreateProductViewModel model);
+        Task DeleteProduct(int productid);
+        Task<ProductViewModel> GetProductDetail(int productid);
     }
 }

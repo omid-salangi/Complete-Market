@@ -25,6 +25,7 @@ namespace IOC
             service.AddScoped<IOrderRepository, OrderRepository>();
             service.AddScoped<IProductRepository, ProductRepository>();
             service.AddScoped<IRatingRepository, RatingRepository>();
+            service.AddScoped<IItemRepository, ItemRepository>();
 
         }
     }

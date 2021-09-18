@@ -12,9 +12,11 @@ namespace Application.Services
    public class ProductServices :IProductServices
    {
        private readonly IProductRepository _product;
-        public ProductServices(IProductRepository product)
+       private readonly IItemRepository _item;
+       public ProductServices(IProductRepository product,IItemRepository item)
         {
             _product = product;
+            _item = item;
         }
         public async Task<IList<ProductViewModel>> GetProducts()
         {
@@ -30,7 +32,8 @@ namespace Application.Services
                     ImgUrl = n.ImgUrl,
                     BuyCount = n.BuyCount,
                     VisitCount = n.VisitCount,
-                    ProductId = n.Id
+                    ProductId = n.Id,
+                    quantityinstock = (await _item.GetDetail(n.Id)).QuantityInStock
                 };
                 model.Add(temp);
             }
@@ -38,9 +41,33 @@ namespace Application.Services
             return model;
         }
 
-        public Task CreateProduct(CreateProductViewModel model)
+        public async Task CreateProduct(CreateProductViewModel model)
         {
-            return Task.CompletedTask;
+           await _product.AddProduct(model.Name, model.ImageUrl, model.ShortDescription, model.LongDescription,
+                model.quantityInStock, model.Price, model.ImageName);
         }
-   }
+
+        public async Task DeleteProduct(int productid)
+        {
+          await  _product.DeleteProduct(productid);
+        }
+
+        public async Task<ProductViewModel> GetProductDetail(int productid)
+        {
+            Product temp = await _product.GetProduct(productid);
+            Item itemp = await _item.GetDetail(productid);
+            ProductViewModel model = new ProductViewModel()
+            {
+                Name = temp.Name,
+                ShortDescription = temp.ShortDescription,
+                LongDescription = temp.LongDescription,
+                BuyCount = temp.BuyCount,
+                VisitCount = temp.VisitCount,
+                ImgUrl = temp.ImgUrl,
+                quantityinstock = itemp.QuantityInStock,
+                Price = itemp.Price
+            };
+            return model;
+        }
+    }
 }

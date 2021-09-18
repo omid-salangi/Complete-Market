@@ -58,7 +58,7 @@ namespace MVC.Pages.Admin.Products
                     await Product.ImageFile.CopyToAsync(fileStream);
                 }
 
-              Product.ImageUrl = Path.Combine("~", "img", Product.ImageName).Replace('\\','/');
+              Product.ImageUrl = Path.Combine("img", Product.ImageName).Replace('\\','/');
                 _product.CreateProduct(Product);
             }
             else 

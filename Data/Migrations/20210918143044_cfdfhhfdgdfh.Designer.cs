@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210910060356_77")]
-    partial class _77
+    [Migration("20210918143044_cfdfhhfdgdfh")]
+    partial class cfdfhhfdgdfh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Domain.Models.Category", b =>
@@ -200,10 +200,16 @@ namespace Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("Money");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("Items");
                 });
@@ -269,11 +275,11 @@ namespace Data.Migrations
                     b.Property<int>("BuyCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImgUrl")
+                    b.Property<string>("ImgName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LongDescription")
                         .HasColumnType("nvarchar(max)");
@@ -289,9 +295,6 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId")
-                        .IsUnique();
-
                     b.ToTable("Products");
                 });
 
@@ -305,26 +308,7 @@ namespace Data.Migrations
                     b.Property<string>("IdentityUserChangeId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdentityUserChangeId")
-                        .IsUnique()
-                        .HasFilter("[IdentityUserChangeId] IS NOT NULL");
-
-                    b.ToTable("Ratings");
-                });
-
-            modelBuilder.Entity("Domain.Models.RatingDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RatingId")
                         .HasColumnType("int");
 
                     b.Property<int>("RatingNumber")
@@ -332,11 +316,11 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdentityUserChangeId");
+
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("RatingId");
-
-                    b.ToTable("RatingDetails");
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -534,6 +518,17 @@ namespace Data.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Domain.Models.Item", b =>
+                {
+                    b.HasOne("Domain.Models.Product", "Product")
+                        .WithOne("Item")
+                        .HasForeignKey("Domain.Models.Item", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
                     b.HasOne("Domain.Models.IdentityUserChange", "IdentityUserChange")
@@ -562,43 +557,21 @@ namespace Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.Product", b =>
-                {
-                    b.HasOne("Domain.Models.Item", "Item")
-                        .WithOne("Product")
-                        .HasForeignKey("Domain.Models.Product", "ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("Domain.Models.Rating", b =>
                 {
                     b.HasOne("Domain.Models.IdentityUserChange", "IdentityUserChange")
-                        .WithOne("Rating")
-                        .HasForeignKey("Domain.Models.Rating", "IdentityUserChangeId");
+                        .WithMany("Rating")
+                        .HasForeignKey("IdentityUserChangeId");
 
-                    b.Navigation("IdentityUserChange");
-                });
-
-            modelBuilder.Entity("Domain.Models.RatingDetail", b =>
-                {
                     b.HasOne("Domain.Models.Product", "Product")
-                        .WithMany("RatingDetails")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Rating", "Rating")
-                        .WithMany("RatingDetails")
-                        .HasForeignKey("RatingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("IdentityUserChange");
 
                     b.Navigation("Product");
-
-                    b.Navigation("Rating");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -673,11 +646,6 @@ namespace Data.Migrations
                     b.Navigation("Rating");
                 });
 
-            modelBuilder.Entity("Domain.Models.Item", b =>
-                {
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
@@ -691,12 +659,7 @@ namespace Data.Migrations
 
                     b.Navigation("FavoriteToProducts");
 
-                    b.Navigation("RatingDetails");
-                });
-
-            modelBuilder.Entity("Domain.Models.Rating", b =>
-                {
-                    b.Navigation("RatingDetails");
+                    b.Navigation("Item");
                 });
 #pragma warning restore 612, 618
         }

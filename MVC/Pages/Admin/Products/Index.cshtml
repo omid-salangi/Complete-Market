@@ -23,12 +23,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].LongDescription)
             </th>
-           
+
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].VisitCount)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].BuyCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].quantityinstock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].quantityinstock)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].ImgUrl)
@@ -57,7 +63,13 @@
                 @Html.DisplayFor(modelItem => item.BuyCount)
             </td>
             <td>
-                <a href="@Html.DisplayFor(modelItem=>item.ImgUrl)"></a>
+                @Html.DisplayFor(modelItem => item.quantityinstock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem=>item.ImgUrl)" width="150" height="150" />
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
