@@ -37,5 +37,10 @@ namespace Application.Services
 
             return model;
         }
-    }
+
+        public Task CreateProduct(CreateProductViewModel model)
+        {
+            return Task.CompletedTask;
+        }
+   }
 }

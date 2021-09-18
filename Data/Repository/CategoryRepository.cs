@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.ViewModel;
 using Data.Context;
 using Domain.Interface;
 using Domain.Models;

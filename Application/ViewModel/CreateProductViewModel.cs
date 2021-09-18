@@ -27,6 +27,9 @@ namespace Application.ViewModel
         [Display(Name = "قیمت محصول")]
         [DataType(DataType.Currency)]
         public double Price { get; set; }
-        
+
+        public string ImageName { get; set; }
+
+
     }
 }

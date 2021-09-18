@@ -10,5 +10,6 @@ namespace Application.Interface
     public interface IProductServices
     {
         Task<IList<ProductViewModel>> GetProducts();
+        Task CreateProduct(CreateProductViewModel model);
     }
 }

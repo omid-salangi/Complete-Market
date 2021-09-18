@@ -2,22 +2,17 @@
 @model MVC.Pages.Admin.Products.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "ایجاد محصول";
 }
 
-<h1>Create</h1>
+<h1>ایجاد محصول</h1>
 
-<h4>Product</h4>
+<h4>محصول</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Product.ImgUrl" class="control-label"></label>
-                <input asp-for="Product.ImgUrl" class="form-control" />
-                <span asp-validation-for="Product.ImgUrl" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Product.Name" class="control-label"></label>
                 <input asp-for="Product.Name" class="form-control" />
@@ -34,24 +29,30 @@
                 <span asp-validation-for="Product.LongDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.VisitCount" class="control-label"></label>
-                <input asp-for="Product.VisitCount" class="form-control" />
-                <span asp-validation-for="Product.VisitCount" class="text-danger"></span>
+                <label asp-for="Product.Price" class="control-label"></label>
+                <input asp-for="Product.Price" class="form-control" />
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.BuyCount" class="control-label"></label>
-                <input asp-for="Product.BuyCount" class="form-control" />
-                <span asp-validation-for="Product.BuyCount" class="text-danger"></span>
+                <label asp-for="Product.quantityInStock" class="control-label"></label>
+                <input asp-for="Product.quantityInStock" class="form-control" />
+                <span asp-validation-for="Product.quantityInStock" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="Product.ImageFile" class="control-label"></label>
+                <input asp-for="Product.ImageFile" class="form-control" />
+                <span asp-validation-for="Product.ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="ایجاد" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
+<div class="mt-3">
+    <a asp-page="Index">بازگشت به لیست</a>
 </div>
 
 @section Scripts {
