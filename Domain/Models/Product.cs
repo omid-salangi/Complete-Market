@@ -18,6 +18,7 @@ namespace Domain.Models
         public string LongDescription { get; set; }
         public int VisitCount { get; set; }
         public int BuyCount { get; set; }
+        public string ImgName { get; set; }
         
 
         // relations

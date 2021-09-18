@@ -49,17 +49,17 @@ namespace MVC.Pages.Admin.Products
                 ModelState.AddModelError("","حداکثر اندازه عکس باید 1 مگابایت باشد.");
                 return Page();
             }
-            if (extension ==".gif" || extension ==".jgp" || extension==".png")
+           else if (extension ==".gif" || extension ==".jgp" || extension==".png")
             {
                 Product.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwRootPath + "/img/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+              string path = Path.Combine(wwwRootPath , "img", fileName);
+              using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await Product.ImageFile.CopyToAsync(fileStream);
                 }
 
+              Product.ImageUrl = Path.Combine("~", "img", Product.ImageName).Replace('\\','/');
                 _product.CreateProduct(Product);
-                Url.Content(path);
             }
             else 
             {
