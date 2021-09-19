@@ -55,6 +55,17 @@ namespace MVC
                 .AddDefaultTokenProviders()
                 .AddErrorDescriber<TranslatePersian.TranslatePersian>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromDays(5);
+
+                options.LoginPath = "/Accounts/Login";
+                options.AccessDeniedPath = "/Accounts/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();

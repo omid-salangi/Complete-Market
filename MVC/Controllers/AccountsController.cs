@@ -123,12 +123,11 @@ namespace MVC.Controllers
 
           if (res.IsLockedOut)
           {
-              ViewData["errormessage"] =
-                  "شما بیشتر از 5 بار رمز را اشتباه وارد کردید و اکانت شما قفل شده است  پنج دقیقه دگیر تلاش کنید.";
+              ModelState.AddModelError("","بدلیل وارد کردن نادرست رمز عبور بیش از حد مجاز حساب برای 5 دقیقه قفل می شود.");
               return View(model);
           }
           ModelState.AddModelError("","نام کاربری یا رمز عبور اشتباست.");
-          return View();
+          return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken] // check for logout from our site
@@ -229,6 +228,11 @@ namespace MVC.Controllers
 
             ViewBag.ErrorTitle = "لطفا با بخش پشتیبانی تماس بگیرید";
             ViewBag.ErrorMessage = $"دریافت کرد {externalLoginInfo.LoginProvider} نمیتوان اطلاعاتی از";
+            return View();
+        }
+
+        public async Task<IActionResult> AccessDenied()
+        {
             return View();
         }
     }

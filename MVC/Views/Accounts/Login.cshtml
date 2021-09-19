@@ -8,6 +8,7 @@
         {
             <div class="text-danger">@ViewData["errormessage"]</div>
         }
+        <div asp-validation-summary="ModelOnly"></div>
         <div class="mb-3">
             <label asp-for="username" class="form-label"></label>
             <input asp-for="username" class="form-control">
@@ -29,27 +30,31 @@
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <h5 class="font-medium m-b-20" style="font-size: 16px">یا ورود با استفاده از اکانت :</h5>
             @{
-                if (!Model.ExternalLogins.Any())//existence of external logins
+                if (Model != null)
                 {
-                    <div>در حال حاضر امکان ورود با اکانت های دیگر وجود ندارد</div>
-                }
-                else
-                {
-                    <form method="post" asp-controller="Accounts" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
-                        <div class="social">
-                            @foreach (var provider in Model.ExternalLogins)
-                            {
+                    if (!Model.ExternalLogins.Any())//existence of external logins
+                    {
+                        <div>در حال حاضر امکان ورود با اکانت های دیگر وجود ندارد</div>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="Accounts" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                            <div class="social">
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
 
-                                <button type="submit" value="@provider.Name"
-                                        class="btn btn-primary" name="provider"
-                                        title="ورود با استفاده از اکانت @provider.DisplayName ">
-                                    @provider.DisplayName
-                                </button>
+                                    <button type="submit" value="@provider.Name"
+                                            class="btn btn-primary" name="provider"
+                                            title="ورود با استفاده از اکانت @provider.DisplayName ">
+                                        @provider.DisplayName
+                                    </button>
 
-                            }
-                        </div>
-                    </form>
+                                }
+                            </div>
+                        </form>
+                    }
                 }
+               
 
             }
         </div>

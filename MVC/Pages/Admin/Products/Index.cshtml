@@ -34,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.Product[0].quantityinstock)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].quantityinstock)
+                @Html.DisplayNameFor(model => model.Product[0].Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].ImgUrl)
@@ -72,9 +72,9 @@
                 <img src="@Html.DisplayFor(modelItem=>item.ImgUrl)" width="150" height="150" />
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ProductId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.ProductId">ویرایش</a> |
+                <a asp-page="./Details" asp-route-id="@item.ProductId">جزئیات</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ProductId">حذف</a>
             </td>
         </tr>
 }

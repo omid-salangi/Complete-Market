@@ -26,7 +26,6 @@ namespace Application.ViewModel
         [Display(Name = "تعداد موجود")]
         public int  quantityinstock { get; set; }
         [Display(Name = "قیمت")]
-        [DataType(DataType.Currency)]
         public double Price { get; set; }
 
     }

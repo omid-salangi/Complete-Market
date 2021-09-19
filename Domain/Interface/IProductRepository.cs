@@ -11,7 +11,7 @@ namespace Domain.Interface
     {
         Task<IList<Product>> GetallProducts();
         Task<Product> GetProduct(int productid);
-        Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price);
+        Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price, string imgname);
         Task DeleteProduct(int productId);
         Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price,string imgname);
     }

@@ -10,5 +10,6 @@ namespace Domain.Interface
    public interface IItemRepository
    {
        Task<Item> GetDetail(int productid);
+       Task DeleteItem(int productid);
    }
 }

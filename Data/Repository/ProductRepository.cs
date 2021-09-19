@@ -29,23 +29,31 @@ namespace Data.Repository
         }
 
         public async Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,
-            int countitem, double price)
+            int countitem, double price,string imgname)
         {
             Product temp = await _context.Products.FindAsync(id);
-            temp.Name = productname;
-            temp.ImgUrl = imgurl;
-            temp.ShortDescription = shortdescription;
-            temp.LongDescription = longdescription;
-            temp.Item.QuantityInStock = countitem;
-            temp.Item.Price = price;
-            _context.SaveChanges();
+            if (temp != null)
+            {
+                temp.Name = productname;
+                temp.ImgUrl = imgurl;
+                temp.ImgName = imgname;
+                temp.ShortDescription = shortdescription;
+                temp.LongDescription = longdescription;
+                temp.Item.QuantityInStock = countitem;
+                temp.Item.Price = price;
+                _context.SaveChanges();
+            }
         }
 
         public async Task DeleteProduct(int productId)
         {
             Product pro = await _context.Products.FindAsync(productId);
-            _context.Products.Remove(pro);
-            _context.SaveChanges();
+            if (pro !=null)
+            {
+                _context.Products.Remove(pro);
+                _context.SaveChanges();
+            }
+            
         }
 
         public async Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription, int countitem,

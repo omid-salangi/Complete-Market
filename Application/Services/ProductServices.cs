@@ -50,6 +50,7 @@ namespace Application.Services
         public async Task DeleteProduct(int productid)
         {
           await  _product.DeleteProduct(productid);
+          await _item.DeleteItem(productid);
         }
 
         public async Task<ProductViewModel> GetProductDetail(int productid)
@@ -69,5 +70,11 @@ namespace Application.Services
             };
             return model;
         }
-    }
+
+        public async Task Edit(CreateProductViewModel model)
+        {
+           await _product.ChangeProduct(model.ProductId, model.Name, model.ImageUrl, model.ShortDescription,
+                model.LongDescription, model.quantityInStock, model.Price, model.ImageName);
+        }
+   }
 }

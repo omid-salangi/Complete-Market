@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Data.Context;
 using Domain.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace MVC.Pages.Admin.Products
 {
@@ -19,11 +20,13 @@ namespace MVC.Pages.Admin.Products
     {
         private readonly IProductServices _product;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IImageServices _image;
 
-        public CreateModel(IProductServices product,IWebHostEnvironment hostEnvironment)
+        public CreateModel(IProductServices product,IWebHostEnvironment hostEnvironment,IImageServices image)
         {
             _product = product;
             _hostEnvironment = hostEnvironment;
+            _image = image;
         }
 
         public async Task<IActionResult> OnGet()
@@ -37,35 +40,38 @@ namespace MVC.Pages.Admin.Products
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnPostAsync()
         {
+            
             if (!ModelState.IsValid)
             {
                 return Page();
             }
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            string fileName = Path.GetFileNameWithoutExtension(Product.ImageFile.FileName);
-            string extension = Path.GetExtension(Product.ImageFile.FileName);
-            if (Product.ImageFile.Length >= 1024000)
+            string extension = null;
+            if ((Product.ImageFile) != null)
             {
-                ModelState.AddModelError("","حداکثر اندازه عکس باید 1 مگابایت باشد.");
-                return Page();
+                 extension = Path.GetExtension(Product.ImageFile.FileName);
+                 if (Product.ImageFile.Length >= 1024000)
+                 {
+                     ModelState.AddModelError("", "حداکثر اندازه عکس باید 1 مگابایت باشد.");
+                     return Page();
+                 }
+                 else if (extension == ".gif" || extension == ".jpg" || extension == ".png")
+                 {
+                     Product = await _image.SaveImage(Product, wwwRootPath, extension);
+                     _product.CreateProduct(Product);
+                 }
+                 else
+                 {
+                     ModelState.AddModelError("", "برای اپلود عکس فقط از فرمت های png , jpg و gif استفاه کنید.");
+                     return Page();
+                 }
             }
-           else if (extension ==".gif" || extension ==".jgp" || extension==".png")
+            else if(Product.ImageFile == null)
             {
-                Product.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-              string path = Path.Combine(wwwRootPath , "img", fileName);
-              using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await Product.ImageFile.CopyToAsync(fileStream);
-                }
-
-              Product.ImageUrl = Path.Combine("img", Product.ImageName).Replace('\\','/');
-                _product.CreateProduct(Product);
+                Product = await _image.SaveImageNoPicture(Product);
+                await _product.CreateProduct(Product);
             }
-            else 
-            {
-                ModelState.AddModelError("","برای اپلود عکس فقط از فرمت های png , jpg و gif استفاه کنید.");
-                return Page();
-            }
+            
         
             return RedirectToPage("./Index");
         }

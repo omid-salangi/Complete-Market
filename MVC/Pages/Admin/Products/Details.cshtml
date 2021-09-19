@@ -1,18 +1,16 @@
 ﻿@page
-@model MVC.Pages.Admin.Products.DeleteModel
+@model MVC.Pages.Admin.Products.DetailsModel
 
 @{
-    ViewData["Title"] = "حذف";
+    ViewData["Title"] = "جزئیات";
 }
 
-<h1>حذف</h1>
+<h1>جزئیات</h1>
 
-<h3>آیا مطمئن هستید محصول حذف شود؟</h3>
 <div>
     <h4>محصول</h4>
     <hr />
     <dl class="row">
-
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
@@ -62,10 +60,8 @@
             <img src="@Html.DisplayFor(model => model.Product.ImgUrl)" width="150" height="150" />
         </dd>
     </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Product.ProductId" />
-        <input type="submit" value="حذف" class="btn btn-danger" /> |
-        <a asp-page="./Index">بازگشت به لیست</a>
-    </form>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Product.ProductId">ویرایش</a> |
+    <a asp-page="./Index">بازگشت به لیست</a>
 </div>

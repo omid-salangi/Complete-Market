@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Data.Context;
 using Domain.Interface;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository
 {
@@ -19,7 +20,19 @@ namespace Data.Repository
         }
         public async Task<Item> GetDetail(int productid)
         {
-            return _context.Items.Where(i => i.ProductId == productid).FirstOrDefault();
+            Item temp=await _context.Items.Where(i => i.ProductId == productid).FirstOrDefaultAsync();
+            return temp;
+        }
+
+        public async Task DeleteItem(int productid)
+        {
+            var item = await _context.Items.Where(i => i.ProductId == productid).FirstOrDefaultAsync();
+            if (item != null)
+            {
+                _context.Items.Remove(item);
+                await _context.SaveChangesAsync();
+            }
+            
         }
     }
 }
