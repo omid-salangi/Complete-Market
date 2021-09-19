@@ -33,7 +33,8 @@ namespace Application.Services
                     BuyCount = n.BuyCount,
                     VisitCount = n.VisitCount,
                     ProductId = n.Id,
-                    quantityinstock = (await _item.GetDetail(n.Id)).QuantityInStock
+                    quantityinstock = (await _item.GetDetail(n.Id)).QuantityInStock,
+                    Price = (await _item.GetDetail(n.Id)).Price
                 };
                 model.Add(temp);
             }

@@ -14,7 +14,7 @@ namespace Application.Services
         public async Task Delete(string imgname,string wwwrootpath)
         {
             string path = Path.Combine(wwwrootpath, "img", imgname);
-            if (File.Exists(path) && imgname!="nopicpath.jpg")
+            if (File.Exists(path) && imgname!="nopicture.jpg")
             {
                 File.Delete(path);
             }

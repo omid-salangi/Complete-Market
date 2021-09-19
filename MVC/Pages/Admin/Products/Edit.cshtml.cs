@@ -67,42 +67,39 @@ namespace MVC.Pages.Admin.Products
                 return Page();
             }
 
-            
-            string extension = null;
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            if (Product.ImageFile.Length != null )
+            if (Product.ImageFile != null )
             {
-                extension = Path.GetExtension(Product.ImageFile.FileName);
+               
+                if (Product.ImageFile.Length >= 1024000)
+                {
+                    ModelState.AddModelError("", "حداکثر اندازه عکس باید 1 مگابایت باشد.");
+                    return Page();
+                }
+                string extension = Path.GetExtension(Product.ImageFile.FileName);
+                if (extension == ".gif" || extension == ".jpg" || extension == ".png")
+                {
+                    _image.Delete(Product.ImageName, wwwRootPath);
+                    Product = await _image.SaveImage(Product, wwwRootPath, extension);
+                    await _product.Edit(Product);
+                    return RedirectToPage("./Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "برای اپلود عکس فقط از فرمت های png , jpg و gif استفاه کنید.");
+                    return Page();
+                }
             }
-            
-            if (Product.ImageFile.Length == null)
+
+            else if (Product.ImageFile == null)
             {
                 await _product.Edit(Product);
                 return RedirectToPage("./Index");
             }
-             if (Product.ImageFile.Length >= 1024000)
-            {
-                ModelState.AddModelError("", "حداکثر اندازه عکس باید 1 مگابایت باشد.");
-                return Page();
-            }
-             if (extension == ".gif" || extension == ".jpg" || extension == ".png")
-            {
-                _image.Delete(Product.ImageName, wwwRootPath);
-                Product = await _image.SaveImage(Product, wwwRootPath, extension);
-                await _product.Edit(Product);
-                return RedirectToPage("./Index");
-            }
-            else
-            {
-                ModelState.AddModelError("", "برای اپلود عکس فقط از فرمت های png , jpg و gif استفاه کنید.");
-                return Page();
-            }
+            return RedirectToPage("./Index");
 
         }
 
-        //private bool ProductExists(int id)
-        //{
-        //    return _context.Products.Any(e => e.Id == id);
-        //}
+        
     }
 }

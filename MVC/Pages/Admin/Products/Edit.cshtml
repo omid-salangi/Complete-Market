@@ -44,6 +44,8 @@
                 <span asp-validation-for="Product.ImageFile" class="text-danger"></span>
             </div>
             <img src="@Model.Product.ImageUrl" class="border-primary"/>
+            <input type="hidden" asp-for="Product.ImageName"/>
+            <input type="hidden" asp-for="Product.ImageUrl"/>
             <div class="form-group mt-3">
                 <input type="submit" value="ویرایش" class="btn btn-primary" />
             </div>

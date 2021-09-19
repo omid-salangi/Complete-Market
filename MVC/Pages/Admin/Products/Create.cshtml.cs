@@ -46,10 +46,10 @@ namespace MVC.Pages.Admin.Products
                 return Page();
             }
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            string extension = null;
+            
             if ((Product.ImageFile) != null)
             {
-                 extension = Path.GetExtension(Product.ImageFile.FileName);
+                 string extension = Path.GetExtension(Product.ImageFile.FileName);
                  if (Product.ImageFile.Length >= 1024000)
                  {
                      ModelState.AddModelError("", "حداکثر اندازه عکس باید 1 مگابایت باشد.");
