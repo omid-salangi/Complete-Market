@@ -1,0 +1,31 @@
+﻿@model IList<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    ViewData["Title"] = "صفحه نخست";
+}
+
+<a asp-controller="ManageRole" asp-action="AddRole" class="btn btn-primary">افزودن مقام</a>
+
+@if (!Model.Any())
+{
+    <h1>مقامی یافت نشد</h1>
+}
+else
+{
+    for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="card mt-2">
+            <div class="card-body">
+               نام مقام : <b>@Model[i].Name</b>
+            </div>
+            <div class="card-footer">
+                <form asp-controller="ManageRole" asp-action="DeleteRole" method="post" asp-route-id="@Model[i].Id">
+
+                    <a asp-controller="ManageRole" asp-action="EditRole" asp-route-id="@Model[i].Id"
+                       class="btn btn-primary">ویرایش</a>
+
+                    <button type="submit" class="btn btn-danger">حذف</button>
+                </form>
+            </div>
+        </div>
+    }
+}
