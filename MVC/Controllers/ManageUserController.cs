@@ -23,6 +23,7 @@ namespace MVC.Controllers
             _roleManager = roleManager;
         }
         [HttpGet]
+        [Authorize(Policy = "ProductListPolicy")]
         public async Task<IActionResult> Index()
         {
             IList<IndexUserNameViewModel> model =await _userManager.GetAllUsers();

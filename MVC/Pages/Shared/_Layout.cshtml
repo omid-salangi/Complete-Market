@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Domain.Models
+@using Microsoft.AspNetCore.Authorization
 
 @inject SignInManager<IdentityUserChange> signInManager
+@inject IAuthorizationService authorizationService
 <!DOCTYPE html>
 <html lang="fa-ir" dir="rtl">
 <head>
@@ -41,6 +43,12 @@
 
             </ul>
             <ul class="navbar-nav">
+                @*@if ((await authorizationService.AuthorizeAsync(User, "ClaimOrRole")).Succeeded) /// this is for check requirement policy to show admin panel  
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/admin/Index">پنل ادمین</a>
+                    </li>
+                }*@
                 @if (signInManager.IsSignedIn(User))
                 {
                     <li class="nav-item">
@@ -51,7 +59,7 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" href="#">پنل ادمین</a>
-                            </li> 
+                            </li>
                         }
                         <form asp-action="LogOut" asp-controller="Accounts" method="post">
                             <button type="submit" class="btn link-dark rounded">خروج</button>
@@ -66,7 +74,7 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-action="Register" asp-controller="Accounts">ثبت نام</a>
                     </li>
-                
+
                 }
 
             </ul>
