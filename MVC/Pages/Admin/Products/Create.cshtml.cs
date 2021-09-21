@@ -11,11 +11,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Data.Context;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace MVC.Pages.Admin.Products
 {
+    
+    [Authorize(Roles = "Admin,Owner")]
     public class CreateModel : PageModel
     {
         private readonly IProductServices _product;

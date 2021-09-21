@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using IOC;
+using Application.Services;
 
 namespace MVC
 {
@@ -54,6 +55,8 @@ namespace MVC
                 }).AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders()
                 .AddErrorDescriber<TranslatePersian.TranslatePersian>();
+
+             SetClaims(services); //// set claims
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -112,6 +115,11 @@ namespace MVC
         public static void RegisterServices(IServiceCollection service)
         {
             DependencyContainer.RegisterServices(service);
+        }
+
+        public static void SetClaims(IServiceCollection service)
+        {
+            Application.Services.SetClaims.SetClaim(service);
         }
     }
 }

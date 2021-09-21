@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Data.Context;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC.Pages.Admin.Products
 {
+    //[Authorize(Roles = "Admin,Owner")]
     public class IndexModel : PageModel
     {
         private readonly IProductServices _product;

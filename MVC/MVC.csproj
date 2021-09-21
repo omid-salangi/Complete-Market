@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Content Remove="Views\ManageRole\EditRole.cshtml" />
-    <Content Remove="Views\ManageUser\AddUserToRole.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,16 +36,10 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\ManageRole\EditRole.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\ManageUser\AddUserToRole.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\ManageRole\EditRole.cshtml" />
-    <None Include="Views\ManageUser\AddUserToRole.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\ManageUser\AddUserToRole.cshtml" />
   </ItemGroup>
 
 </Project>

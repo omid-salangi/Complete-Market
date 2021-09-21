@@ -9,10 +9,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Data.Context;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace MVC.Pages.Admin.Products
 {
+    [Authorize(Roles = "Admin,Owner")]
     public class DetailsModel : PageModel
     {
         private readonly IProductServices _product;

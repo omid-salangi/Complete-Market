@@ -12,9 +12,11 @@ using Data.Context;
 using Domain.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC.Pages.Admin.Products
 {
+    [Authorize(Roles = "Admin,Owner")]
     public class EditModel : PageModel
     {
         private readonly IProductServices _product;

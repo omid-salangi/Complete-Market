@@ -10,6 +10,8 @@ namespace Application.ViewModel
         public string UserName { get; set; }
         [Display(Name = "ایمیل")]
         public string Email { get; set; }
+        [Display(Name = "شماره تلفن")]
+        public string PhoneNumber { get; set; }
 
     }
 }

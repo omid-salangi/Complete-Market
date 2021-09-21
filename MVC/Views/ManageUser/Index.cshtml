@@ -1,6 +1,6 @@
 ﻿@model List<IndexUserNameViewModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "مدیریت کاربران";
 }
 
 
@@ -14,22 +14,28 @@ else
     {
         <div class="card mt-2">
             <div class="card-header">
-                نام کاربری : <b>@Model[i].UserName</b>
+                 @Html.DisplayNameFor(model =>model[0].UserName)<b>@Model[i].UserName</b>
             </div>
             <div class="card-body">
-                ایمیل : <b>@Model[i].Email</b>
+                <div class="d-flex justify-content-between">
+                    <div>@Html.DisplayNameFor(model => model[0].Email) :<b>@Model[i].Email</b></div> 
+                    <div>@Html.DisplayNameFor(model => model[0].PhoneNumber) :<b>@Model[i].PhoneNumber</b></div>
+                </div>
+                
             </div>
             <div class="card-footer">
                 <form asp-controller="ManageUser" asp-action="DeleteUser" asp-route-id="@Model[i].Id" method="post">
 
                     <a asp-controller="ManageUser" asp-action="EditUser" asp-route-id="@Model[i].Id"
-                       class="btn btn-primary">Edit Username</a>
+                       class="btn btn-primary">ویرایش</a>
 
                     <a asp-controller="ManageUser" asp-action="AddUserToRole" asp-route-id="@Model[i].Id"
-                       class="btn btn-primary">Add to role</a>
+                       class="btn btn-primary">افزودن مقام</a>
                     <a asp-controller="ManageUser" asp-action="RemoveUserFromRole" asp-route-id="@Model[i].Id"
-                       class="btn btn-danger">Remove From role</a>
-
+                       class="btn btn-danger">حذف مقام</a>
+                    <a asp-controller="ManageUser" asp-action="AddUserToClaim" asp-route-id="@Model[i].Id" class="btn btn-primary">افزودن claim</a>
+                    <a asp-controller="ManageUser" asp-action="RemoveUserFromClaim" asp-route-id="@Model[i].Id"
+                       class="btn btn-danger">حذف claim</a>
                     <button type="submit" class="btn btn-danger">حذف کاربر</button>
                 </form>
             </div>

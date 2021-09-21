@@ -47,6 +47,12 @@
                         <a class="nav-link" href="#">@User.Identity.Name</a>
                     </li>
                     <li class="nav-item">
+                        @if (User.IsInRole("Admin") || User.IsInRole("Owner"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">پنل ادمین</a>
+                            </li> 
+                        }
                         <form asp-action="LogOut" asp-controller="Accounts" method="post">
                             <button type="submit" class="btn link-dark rounded">خروج</button>
                         </form>
@@ -114,6 +120,10 @@
                                 @if (signInManager.IsSignedIn(User))
                                 {
                                     <li><a href="#" class="link-dark rounded">@User.Identity.Name</a></li>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Owner"))
+                                    {
+                                        <li><a as class="link-dark rounded">پنل ادمین</a></li>
+                                    }
                                     <form asp-action="LogOut" asp-controller="Accounts" method="post">
                                         <button type="submit" class="btn link-dark rounded">خروج</button>
                                     </form>

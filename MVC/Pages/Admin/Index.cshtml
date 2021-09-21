@@ -1,0 +1,34 @@
+﻿@page
+@model MVC.Pages.Admin.IndexModel
+@{
+    ViewData["title"] = "پنل ادمین" ;
+}
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card border-primary mb-3 cardadmin">
+            <div class="card-header bg-transparent border-primary"><h5 class="card-title">مدیریت کاربران</h5></div>
+            <div class="card-body text-dark">
+                <p class="card-text">این قسمت برای مدیریت کاربران و ویرایش آنها متناسب با دسترسی کاربر می باشد.</p>
+            </div>
+            <div class="card-footer bg-transparent border-primary text-center"><a class="btn btn-outline-primary" asp-controller="ManageUser" asp-action="Index">مدیریت کاربران</a></div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card border-primary mb-3 cardadmin">
+            <div class="card-header bg-transparent border-primary"><h5 class="card-title">مدیریت دسترسی ها</h5></div>
+            <div class="card-body text-dark">
+                <p class="card-text">این قسمت برای مدیریت دسترسی ها می باشد و فقط مقام owner  به این قسمت دسترسی دارد.</p>
+            </div>
+            <div class="card-footer bg-transparent border-primary text-center"><a class="btn btn-outline-primary" asp-controller="ManageRole" asp-action="Index">مدیریت دسترسی ها</a></div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card border-primary mb-3 cardadmin">
+            <div class="card-header bg-transparent border-primary"><h5 class="card-title">مدیریت محصولات</h5></div>
+            <div class="card-body text-dark">
+                <p class="card-text">این قسمت برای افزودن ، ویرایش و حذف محصولات می باشد.</p>
+            </div>
+            <div class="card-footer bg-transparent border-primary text-center"><a class="btn btn-outline-primary" asp-page="/admin/products/Index">مدیریت محصولات</a></div>
+        </div>
+    </div>
+</div>

@@ -2,12 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Interface;
+using Application.Services;
 using Application.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC.Controllers
 {
+    //[Authorize(Roles = "Admin,Owner")]
     public class ManageUserController : Controller
     {
         private readonly IUserManagerServices _userManager;
@@ -116,21 +120,112 @@ namespace MVC.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> RemoveUserFromRole(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+           var model=await _userManager.GetRemoveUserFromRole(id);
+           return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveUserFromRole(AddUserToRoleViewModel model)
         {
             if (model == null)
             {
                 return NotFound();
             }
-            var user = await _userManager.GetUserIdentity(model.UserId);
-            if (user == null)
+           var result = await _userManager.RemoveUserFromRole(model);
+
+            if (result.Succeeded) return RedirectToAction("index");
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound();
             }
-            var requestRoles = model.UserRoles.Where(r => r.IsSelected)
-                .Select(u => u.RoleName)
-                .ToList();
-            var result = await _userManager.AddUserToRole(user, requestRoles);
+
+           var res= await _userManager.DeleteUser(id);
+           return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddUserToClaim(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var res = await _userManager.GetAddUserToClaim(id);
+            if (res.UserId==null)
+            {
+                return NotFound();
+            }
+            return View(res);
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddUserToClaim(AddOrRemoveClaimViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var res = await _userManager.PostAddUserToClaim(model);
+            if (res.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+
+            foreach (var r in res.Errors)
+            {
+                ModelState.AddModelError("",r.Description);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveUserFromClaim(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var model = await _userManager.GetRemoveUserFromClaim(id);
+            return View(model);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveUserFromClaim(AddOrRemoveClaimViewModel model)
+        {
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.PostRemoveUserFromclaim(model);
 
             if (result.Succeeded)
             {

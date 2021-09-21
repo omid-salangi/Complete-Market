@@ -14,7 +14,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 
 namespace MVC.Pages.Admin.Products
-{ 
+{
+    [Authorize(Roles = "Admin,Owner")]
     public class DeleteModel : PageModel
     {
         private readonly IProductServices _product;

@@ -5,11 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Interface;
 using Application.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MVC.Controllers
 {
+    [Authorize(Roles = "Owner")]
     public class ManageRoleController : Controller
     {
         private readonly IRoleManagerServices _roleManager;
