@@ -14,5 +14,6 @@ namespace Domain.Interface
         Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price, string imgname);
         Task DeleteProduct(int productId);
         Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription,int countitem,double price,string imgname);
+        Task<IList<Product>> GetForIndex(int pageid);
     }
 }

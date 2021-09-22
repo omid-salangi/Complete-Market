@@ -15,5 +15,7 @@ namespace Application.Interface
         Task DeleteProduct(int productid);
         Task<ProductViewModel> GetProductDetail(int productid);
         Task Edit(CreateProductViewModel model);
+        Task<IList<ProductIndexViewModel>> GetProductsByPaging(int pageid);
+
     }
 }

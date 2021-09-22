@@ -80,6 +80,10 @@ namespace Data.Repository
             
         }
 
-      
+        public async Task<IList<Product>> GetForIndex(int pageid)
+        {
+            int skip = (pageid - 1) * 12;
+            return _context.Products.OrderBy(n => n.Id).Skip(skip).Take(12).ToList();
+        }
     }
 }

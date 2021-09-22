@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -77,5 +78,28 @@ namespace Application.Services
            await _product.ChangeProduct(model.ProductId, model.Name, model.ImageUrl, model.ShortDescription,
                 model.LongDescription, model.quantityInStock, model.Price, model.ImageName);
         }
-   }
+
+        public async Task<IList<ProductIndexViewModel>> GetProductsByPaging(int pageid)
+        {
+            var products = await _product.GetForIndex(pageid);
+            IList<ProductIndexViewModel> model = new List<ProductIndexViewModel>();
+            Item item;
+            foreach (var p in products)
+            {
+                item =await _item.GetDetail(p.Id);
+                model.Add(
+                new ProductIndexViewModel(){
+                    Name = p.Name,
+                    ShortDescription = p.ShortDescription,
+                    Price = item.Price,
+                    QuantityInStock = item.QuantityInStock,
+                    Id = p.Id,
+                    ImageUrl = p.ImgUrl,
+                });
+            }
+
+            return model;
+
+        }
+    }
 }
