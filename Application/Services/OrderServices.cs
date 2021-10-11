@@ -13,27 +13,33 @@ namespace Application.Services
     {
         private readonly IOrderRepository _order;
         private readonly IItemRepository _item;
+        private readonly IUserManagerServices _user;
 
-        public OrderServices(IOrderRepository order, IItemRepository item)
+        public OrderServices(IOrderRepository order, IItemRepository item, IUserManagerServices user)
         {
             _order = order;
             _item = item;
+            _user = user;
         }
-        public async Task<bool> AddToCart(string userid, int productid, int count)
+        public async Task<bool> AddToCart(string username, int productid, int count)
         {
+            string userid = await _user.GetUserIdByUserName(username);
             try
             {
                 int or = await _order.GetCurrentOrder(userid);
-                OrderDetail od = new OrderDetail()
+                var itm = await _item.GetDetail(productid);
+                if (itm.QuantityInStock >= count)
                 {
-                    ProductId = productid,
-                    count = count,
-                    Price = (decimal) (count*((await _item.GetDetail(productid).Result.Price))
-                };
+                    await _order.AddOrderDetail(userid, or, count, productid);
+                    return true;
+                }
+
+                return false;
+
             }
             catch (Exception e)
             {
-                
+                return false;
             }
             
         }

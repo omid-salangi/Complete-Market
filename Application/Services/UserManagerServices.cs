@@ -9,6 +9,7 @@ using Application.ViewModel;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
@@ -194,9 +195,9 @@ namespace Application.Services
             return await _userManager.RemoveClaimsAsync(user, requestClaims);
         }
 
-        public async Task<bool> AddToCart(string userid, int productid, int count)
+        public async Task<string> GetUserIdByUserName(string username)
         {
-          
+            return  await   _userManager.Users.Where(n => n.UserName == username).Select(n => n.Id).FirstOrDefaultAsync();
         }
     }
 }

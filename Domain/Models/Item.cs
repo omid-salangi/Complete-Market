@@ -13,7 +13,7 @@ namespace Domain.Models
         [Key]
         public int Id { get; set; }
         public int QuantityInStock { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         //relations
         [ForeignKey("Product")]

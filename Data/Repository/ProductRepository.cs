@@ -29,7 +29,7 @@ namespace Data.Repository
         }
 
         public async Task ChangeProduct(int id, string productname, string imgurl, string shortdescription, string longdescription,
-            int countitem, double price,string imgname)
+            int countitem, decimal price,string imgname)
         {
             Product temp = await _context.Products.FindAsync(id);
             if (temp != null)
@@ -57,7 +57,7 @@ namespace Data.Repository
         }
 
         public async Task AddProduct(string productname, string imgurl, string shortdescription, string longdescription, int countitem,
-            double price,string imgname)
+            decimal price,string imgname)
         {
             Product pro = new Product()
             {

@@ -4,6 +4,6 @@ namespace Application.Interface
 {
     public interface IOrderServices
     {
-        Task<bool> AddToCart(string userid, int productid, int count);
+        Task<bool> AddToCart(string username, int productid, int count);
     }
 }

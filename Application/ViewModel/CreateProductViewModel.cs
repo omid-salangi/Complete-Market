@@ -25,7 +25,7 @@ namespace Application.ViewModel
         [Range(1, int.MaxValue, ErrorMessage = "فقط اعداد مثبت وارد کنید.")]
         public int  quantityInStock { get; set; }
         [Display(Name = "قیمت محصول")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public string ImageName { get; set; }
         public string  ImageUrl { get; set; }

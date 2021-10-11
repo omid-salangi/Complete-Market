@@ -26,7 +26,7 @@ namespace Application.ViewModel
         [Display(Name = "تعداد موجود")]
         public int  quantityinstock { get; set; }
         [Display(Name = "قیمت")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
     }
 }

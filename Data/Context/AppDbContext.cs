@@ -35,7 +35,7 @@ namespace Data.Context
             modelBuilder.Entity<FavoriteToProduct>().HasKey(p => new { p.ProductId, p.FavoriteListId }); // many to many
 
             modelBuilder.Entity<Item>().Property(p => p.Price).HasColumnType("Money");  // for price 
-            modelBuilder.Entity<OrderDetail>().Property(p => p.Price).HasColumnType("Money");
+            //modelBuilder.Entity<OrderDetail>().Property(p => p.Price).HasColumnType("Money");
         }
     }
 }

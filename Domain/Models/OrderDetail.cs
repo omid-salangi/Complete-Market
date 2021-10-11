@@ -12,8 +12,8 @@ namespace Domain.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public decimal Price { get; set; }
+        //[Required]
+        //public decimal Price { get; set; }
         [Required]
         public int count { get; set; }
 
