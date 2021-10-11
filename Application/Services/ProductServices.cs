@@ -101,5 +101,15 @@ namespace Application.Services
             return model;
 
         }
+
+        public async Task<int> CountOfProduct()
+        {
+            return await _product.CountOfProducs();
+        }
+
+        public async Task addviewcount(int productid)
+        {
+           await _product.AddViewCount(productid);
+        }
     }
 }

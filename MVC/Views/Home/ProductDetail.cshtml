@@ -1,0 +1,78 @@
+﻿@model ProductViewModel
+@{
+    ViewData["title"] = "جزئیات محصول";
+}
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.ImgUrl)
+    </dt>
+    <dd class="col-sm-10">
+        <img src="@Html.DisplayFor(model => model.ImgUrl)" width="150" height="150" />
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.LongDescription)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.LongDescription)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.VisitCount)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.VisitCount)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.BuyCount)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.BuyCount)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.quantityinstock)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.quantityinstock)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Price)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Price)
+    </dd>
+</dl>
+<input id="count" type="number" min="1"/>
+<a id="addtocart" class="btn btn-primary">افزودن به سبد خرید</a>
+<span id="msg"></span>
+<form asp-action="ProductDetail" asp-controller="Home" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="number" name="count"/>
+    <br/>
+    <input class="btn btn-primary mt-3" type="submit" value="افزودن به سبد خرید."/>
+    <br/>
+    <input type="hidden" name="productid" value="@Model.ProductId"/>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#addtocart').keyup(function() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.ActionLink("AddToCart","API")",
+                data: { productid: @Model.ProductId , count: $('#count').val() },
+                datatype: "text",
+                success : function(data,status,xhr) {
+                    $('#msg').html(data.message);
+                }
+                ,error :function(req, status, error) {
+
+                }
+        });
+        });
+    });
+</script>

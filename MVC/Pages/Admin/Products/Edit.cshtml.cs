@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MVC.Pages.Admin.Products
 {
-    [Authorize(Roles = "Admin,Owner")]
     public class EditModel : PageModel
     {
         private readonly IProductServices _product;
@@ -81,7 +80,7 @@ namespace MVC.Pages.Admin.Products
                 string extension = Path.GetExtension(Product.ImageFile.FileName);
                 if (extension == ".gif" || extension == ".jpg" || extension == ".png")
                 {
-                    _image.Delete(Product.ImageName, wwwRootPath);
+                   await _image.Delete(Product.ImageName, wwwRootPath);
                     Product = await _image.SaveImage(Product, wwwRootPath, extension);
                     await _product.Edit(Product);
                     return RedirectToPage("./Index");

@@ -23,7 +23,8 @@ namespace IOC
             service.AddScoped<IImageServices,ImageServices>();
             service.AddScoped<IRoleManagerServices, RoleManagerServices>();
             service.AddScoped<IUserManagerServices,UserManagerServices>();
-            //
+            service.AddScoped<IOrderServices, OrderServices>();
+            //set authorization handler
             service.AddSingleton<IAuthorizationHandler, ClaimHandler>();
             //
             //data layer

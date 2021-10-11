@@ -193,5 +193,10 @@ namespace Application.Services
                     .Select(u => new Claim(u.ClaimType, true.ToString())).ToList();
             return await _userManager.RemoveClaimsAsync(user, requestClaims);
         }
+
+        public async Task<bool> AddToCart(string userid, int productid, int count)
+        {
+          
+        }
     }
 }

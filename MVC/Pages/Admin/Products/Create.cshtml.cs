@@ -19,6 +19,7 @@ namespace MVC.Pages.Admin.Products
 {
     
     [Authorize(Roles = "Admin,Owner")]
+    [ValidateAntiForgeryToken]
     public class CreateModel : PageModel
     {
         private readonly IProductServices _product;
@@ -40,7 +41,7 @@ namespace MVC.Pages.Admin.Products
         [BindProperty]
         public CreateProductViewModel Product { get; set; }
 
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> OnPostAsync()
         {
             
@@ -61,7 +62,7 @@ namespace MVC.Pages.Admin.Products
                  else if (extension == ".gif" || extension == ".jpg" || extension == ".png")
                  {
                      Product = await _image.SaveImage(Product, wwwRootPath, extension);
-                     _product.CreateProduct(Product);
+                    await _product.CreateProduct(Product);
                  }
                  else
                  {

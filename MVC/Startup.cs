@@ -60,14 +60,14 @@ namespace MVC
             {
                 option.AddPolicy("ProductListPolicy", policy => // ProductlistPolicy is a name that you select 
                 {
-                    policy.RequireClaim(ClaimTypeStore.ProductList,true.ToString());
-                    option.AddPolicy("ClaimOrRole", policy => 
-                        policy.RequireAssertion(context=>context.User.HasClaim("ProductList",true.ToString()) // use reqiureassertion to add many roles and claims 
-                        || context.User.IsInRole("Admin")
-                        )); /// straight way
-                    option.AddPolicy("ClaimRequirement",policy=>
-                        policy.Requirements.Add(new ClaimRequirement(ClaimTypeStore.ProductList,true.ToString()))); /// for handler  and we can use empty class instead claimrequirements class and do every thing in handler 
+                    policy.RequireClaim(ClaimTypeStore.IsEmailConfirmed,true.ToString());
+                   
                 });
+                option.AddPolicy("ClaimOrRole", policy =>
+                    policy.RequireAssertion(context => context.User.HasClaim("ProductList", true.ToString()) // use reqiureassertion to add many roles and claims
+                                                                                                             || context.User.IsInRole("Admin"))); /// straight way
+                option.AddPolicy("ClaimRequirement", policy =>
+                    policy.Requirements.Add(new ClaimRequirement(ClaimTypeStore.IsEmailConfirmed, true.ToString()))); /// for handler  and we can use empty class instead claimrequirements class and do every thing in handler 
             });
 
 
@@ -129,9 +129,5 @@ namespace MVC
             DependencyContainer.RegisterServices(service);
         }
 
-        public static void SetClaims(IServiceCollection service)
-        {
-            Application.Services.SetClaims.SetClaim(service);
-        }
     }
 }

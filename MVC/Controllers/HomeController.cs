@@ -22,29 +22,37 @@ namespace MVC.Controllers
             _logger = logger;
             _product = product;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index(int pageid=1)
         {
             ViewBag.pageid = pageid;
-            if (pageid/12 ==0)
+            int pagecount = await _product.CountOfProduct();
+            if (pagecount %12 ==0)
             {
-                ViewBag.pagecount = pageid / 12;
+                pagecount /= 12;
+                ViewBag.pagecount = pagecount;
             }
             else
             {
-                ViewBag.pagecount = (pageid / 12) + 1;
+                pagecount = (pagecount / 12 )+ 1;
+                ViewBag.pagecount = pagecount;
             }
 
-            if (pageid > ViewBag.pagecount)
+            if (pageid > pagecount)
             {
                 return NotFound();
             }
-
             var model = await _product.GetProductsByPaging(pageid);
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> ProductDetail(int id)
+        {
+            var model = await _product.GetProductDetail(id);
+            await _product.addviewcount(id);
+            return View(model);
+        }
 
-        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Error()

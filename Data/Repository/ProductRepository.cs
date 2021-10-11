@@ -85,5 +85,17 @@ namespace Data.Repository
             int skip = (pageid - 1) * 12;
             return _context.Products.OrderBy(n => n.Id).Skip(skip).Take(12).ToList();
         }
+
+        public async Task<int> CountOfProducs()
+        {
+            return _context.Products.Count();
+        }
+
+        public async Task AddViewCount(int productid)
+        {
+            Product temp = await _context.Products.FindAsync(productid);
+            temp.VisitCount += 1;
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -158,6 +158,10 @@ namespace MVC.Controllers
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null) return NotFound();
             var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                await _userManager.AddClaimAsync(user, new Claim("IsEmailConfirmed", true.ToString()));
+            }
 
             return Content(result.Succeeded ? "Email Confirmed" : "Email Not Confirmed");
         }

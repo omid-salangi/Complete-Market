@@ -16,6 +16,8 @@ namespace Application.Interface
         Task<ProductViewModel> GetProductDetail(int productid);
         Task Edit(CreateProductViewModel model);
         Task<IList<ProductIndexViewModel>> GetProductsByPaging(int pageid);
+        Task<int> CountOfProduct();
+        Task addviewcount(int productid);
 
     }
 }

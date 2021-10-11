@@ -11,10 +11,21 @@ namespace Application.Services.Security.Default
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ClaimRequirement requirement)
         {
-            if (context.User.HasClaim(requirement.ClaimType, requirement.ClaimValue))
-                context.Succeed(requirement);
-
-            return Task.CompletedTask;
+            var claim = context.User.Claims.Where(c => c.Type == requirement.ClaimType).FirstOrDefault();
+            if (claim != null )
+            {
+                if (claim.Value==true.ToString())
+                {
+                    context.Succeed(requirement);
+                    return Task.CompletedTask;
+                }
+               return Task.CompletedTask;
+            }
+            else
+            {
+                context.Fail();
+                return Task.CompletedTask;
+            }
         }
     }
 }

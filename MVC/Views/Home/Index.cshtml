@@ -2,3 +2,44 @@
 @{
     ViewData["Title"] = "خریدیو";
 }
+<h2 class="mt-3"> محصولات</h2>
+<hr/>
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card h-100 cardproduct">
+                <img src="@p.ImageUrl" class="card-img-top" alt="@p.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Name</h5>
+                    <p class="card-text">@p.ShortDescription</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 text-center">
+                    <a class="btn btn-dark " asp-action="ProductDetail" asp-controller="Home" asp-route-id="@p.Id">
+                        مشاهده محصول
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<div class="text-center">
+    <nav class="mt-3">
+        <ul class="pagination d-flex justify-content-center align-items-center">
+            <li class="page-item @(((int)ViewBag.pageid<=1)?"disabled":"")">
+                <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-id="@((int)ViewBag.pageid-1)">قبلی</a>
+            </li>
+            @for (int i = 1; i <= ViewBag.pagecount;i++)
+            {
+                <li class="page-item @(((int)ViewBag.pageid==i)?"active":"")">
+                    <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-id="@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(((int)ViewBag.pageid>=(int)ViewBag.pagecount)?"disabled":"")">
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-id="@((int)ViewBag.pageid+1)">بعدی</a>
+            </li>
+        </ul>
+    </nav>
+</div>

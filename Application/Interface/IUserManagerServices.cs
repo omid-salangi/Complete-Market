@@ -21,5 +21,6 @@ namespace Application.Interface
         Task<IdentityResult> PostAddUserToClaim(AddOrRemoveClaimViewModel model);
         Task<AddOrRemoveClaimViewModel> GetRemoveUserFromClaim(string id);
         Task<IdentityResult> PostRemoveUserFromclaim(AddOrRemoveClaimViewModel model);
+        Task<bool> AddToCart(string userid, int productid, int count);
     }
 }
