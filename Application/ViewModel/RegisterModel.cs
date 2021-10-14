@@ -28,7 +28,7 @@ namespace Application.ViewModel
         [MaxLength(50)]
         [MinLength(8)]
         [DataType(DataType.Password)]
-        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        [System.ComponentModel.DataAnnotations.Compare("Password",ErrorMessage = "تکرار رمز عبور صحیح نمی باشد.")]
         [Display(Name = "تکرار رمز ورود")]
         public string RePassword { get; set; }
 

@@ -46,6 +46,7 @@ namespace MVC
             );
             services.AddIdentity<IdentityUserChange, IdentityRole>(options =>// we can add new setting in identity
                 {
+                    options.User.RequireUniqueEmail = true; // each user should have unique email address
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredUniqueChars = 0;
                     options.Password.RequireUppercase = false;

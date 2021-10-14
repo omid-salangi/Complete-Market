@@ -7,24 +7,21 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModel
 {
-    public class ChangePasswordViewModel
+    public class ResetPasswordViewModel
     {
+        public string username { get; set; }
+        public string token { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(50)]
         [MinLength(8)]
         [DataType(DataType.Password)]
-        [Display(Name = "رمز عبور فعلی")]
-        public string CurrentPassword { get; set; }
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
-        [MaxLength(50)]
-        [MinLength(8)]
-        [DataType(DataType.Password)]
-        [Display(Name = "رمز عبور جدید")]
+        [Display(Name = "رمز عبور")]
         public string NewPassword { get; set; }
-        [DataType(DataType.Password)]
-        [Display(Name = "تکرار رمز عبور جدید")]
         [Compare("NewPassword",ErrorMessage = "تکرار رمز عبور صحیح نمی باشد.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "تکرار رمز عبور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
-        public string ReNewPassword { get; set; }
+        public string RePassword { get; set; }
+       
     }
 }

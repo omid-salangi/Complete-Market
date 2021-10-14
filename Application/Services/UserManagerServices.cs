@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interface;
 using Application.ViewModel;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
@@ -204,6 +204,43 @@ namespace Application.Services
         {
             IdentityUserChange user = await _userManager.Users.Where(u => u.UserName == username).FirstOrDefaultAsync();
             return await _userManager.ChangePasswordAsync(user, currentpass, newpass);
+        }
+
+        public async Task<IdentityUserChange> GetUserByEmail(string email)
+        {
+            IdentityUserChange user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                user = new IdentityUserChange();
+                user.Id = "nothing";
+                return user;
+            }
+
+            return user;
+        }
+
+        public async Task<IdentityResult> ResetPassword(string username, string token,string newpass)
+        {
+            var user=await _userManager.FindByNameAsync(username);
+            if (user==null)
+            {
+                return IdentityResult.Failed();
+            }
+
+            return await _userManager.ResetPasswordAsync(user, token, newpass);
+        }
+
+        public async Task<bool> IsResetPasswordTokenValid(string username, string token)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user==null)
+            {
+                return false;
+            }
+
+            var res = await _userManager.VerifyUserTokenAsync(user,
+                _userManager.Options.Tokens.PasswordResetTokenProvider, "ResetPassword", token);
+            return res;
         }
     }
 }

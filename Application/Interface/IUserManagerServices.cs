@@ -23,5 +23,8 @@ namespace Application.Interface
         Task<IdentityResult> PostRemoveUserFromclaim(AddOrRemoveClaimViewModel model);
         Task<string> GetUserIdByUserName(string username);
         Task<IdentityResult> ChangePassword(string username, string currentpass, string newpass);
+        Task<IdentityUserChange> GetUserByEmail(string email);
+        Task<IdentityResult> ResetPassword(string username, string token,string newpass);
+        Task<bool> IsResetPasswordTokenValid(string username, string token);
     }
 }

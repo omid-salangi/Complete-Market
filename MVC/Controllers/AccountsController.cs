@@ -9,7 +9,6 @@ using Application.ViewModel;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft;
 
 
 namespace MVC.Controllers
@@ -270,6 +269,67 @@ namespace MVC.Controllers
         }
 
         public async Task<IActionResult> SuccessChangePassword()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(string email)
+        {
+            IdentityUserChange user = await _userManagerServices.GetUserByEmail(email);
+            if (user.Id=="nothing")
+            {
+                return Redirect("/home/index");
+            }
+            var emailResetPasswordToken =
+                await _userManager.GeneratePasswordResetTokenAsync(user);
+            var emailMessage =
+                Url.Action("ResetPassword", "Accounts",
+                    new { username = user.UserName, token = emailResetPasswordToken },
+                    Request.Scheme);
+            await _messagesender.SendEmailAsync(email, "بازنشانی رمز عبور", emailMessage);
+            return Redirect("/home/index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(string username, string token)
+        {
+            if (!await _userManagerServices.IsResetPasswordTokenValid(username,token))
+            {
+                return Redirect("/home/index");
+            }
+
+            var model = new ResetPasswordViewModel()
+            {
+                username = username,
+                token = token
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var res = await _userManagerServices.ResetPassword(model.username, model.token, model.NewPassword);
+            if (res.Succeeded)
+            {
+                return Redirect("/accounts/successresetpass");
+            }
+            ModelState.AddModelError("","مشکلی رخ داده است.");
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SuccessResetPass()
         {
             return View();
         }
