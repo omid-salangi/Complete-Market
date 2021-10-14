@@ -46,33 +46,34 @@
         @Html.DisplayFor(model => model.Price)
     </dd>
 </dl>
-<input id="count" type="number" min="1"/>
+<input id="count" type="number" min="1" value="1"/>
 <a id="addtocart" class="btn btn-primary">افزودن به سبد خرید</a>
 <span id="msg"></span>
-<form asp-action="ProductDetail" asp-controller="Home" method="post">
-    <div asp-validation-summary="ModelOnly"></div>
-    <input type="number" name="count"/>
-    <br/>
-    <input class="btn btn-primary mt-3" type="submit" value="افزودن به سبد خرید."/>
-    <br/>
-    <input type="hidden" name="productid" value="@Model.ProductId"/>
-</form>
+@section Scripts
+{<script type="text/javascript">
+     $(document).ready(function() {
+         $('#addtocart').click(function() {
+             let aj = {
+                 productid :@Model.ProductId,
+                 count : $('#count').val()
+             };
+             $.ajax({
+                 type: "POST",
+                 url: "/api/addtocart",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 data: JSON.stringify(aj),
+                 success: function (data) {
+                     $('#msg').html(data.Message);
+                 }
+                 , error: function (xhr,errormesage,errorthrown) {
+                     if (xhr.status == 401) {
+                        window.location.href = "/accounts/login";
+                     }
+                 }
+             });
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#addtocart').keyup(function() {
-            $.ajax({
-                type: "POST",
-                url: "@Url.ActionLink("AddToCart","API")",
-                data: { productid: @Model.ProductId , count: $('#count').val() },
-                datatype: "text",
-                success : function(data,status,xhr) {
-                    $('#msg').html(data.message);
-                }
-                ,error :function(req, status, error) {
+         });
+     });
+</script>}
 
-                }
-        });
-        });
-    });
-</script>

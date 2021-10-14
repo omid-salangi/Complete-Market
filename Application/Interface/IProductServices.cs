@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace Application.Interface
         Task<IList<ProductIndexViewModel>> GetProductsByPaging(int pageid);
         Task<int> CountOfProduct();
         Task addviewcount(int productid);
+        Task<bool> IsProductEnough(int productid, int count);
 
     }
 }

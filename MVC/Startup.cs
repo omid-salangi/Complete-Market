@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Data.Context;
 using Domain.Models;
@@ -16,6 +17,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using IOC;
 using Application.Services;
 using Microsoft.AspNetCore.Authorization;
+using MVC.Controllers;
 
 namespace MVC
 {
@@ -122,6 +124,14 @@ namespace MVC
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //app.UseStatusCodePages(async Context =>
+            //{
+            //    var response = Context.HttpContext.Response;
+            //    if (response.StatusCode ==(int) HttpStatusCode.Unauthorized || response.StatusCode == (int)HttpStatusCode.Forbidden)
+            //    {
+            //        response.Redirect("/Accounts/Login");
+            //    }
+            //});
         }
 
         public static void RegisterServices(IServiceCollection service)

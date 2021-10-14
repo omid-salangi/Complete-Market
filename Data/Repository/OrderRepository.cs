@@ -85,8 +85,9 @@ namespace Data.Repository
                     count = count,
                     ProductId = productid
                 };
-                await _context.OrderDetails.AddAsync(orderDetailtemp);
+                 _context.OrderDetails.Add(orderDetailtemp);
                 _context.SaveChanges();
+                return;
             }
 
         }

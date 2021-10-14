@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Application.Interface;
 using Application.ViewModel;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft;
 
@@ -18,12 +19,14 @@ namespace MVC.Controllers
         private readonly UserManager<IdentityUserChange> _userManager;
         private readonly SignInManager<IdentityUserChange> _signInManager;
         private readonly IMessageSender _messagesender;
-        public AccountsController(UserManager<IdentityUserChange> userManager , SignInManager<IdentityUserChange> signInManager,
-            IMessageSender messageSender)
+        private readonly IUserManagerServices _userManagerServices;
+
+        public AccountsController(UserManager<IdentityUserChange> userManager, SignInManager<IdentityUserChange> signInManager, IMessageSender messagesender, IUserManagerServices userManagerServices)
         {
-            _signInManager = signInManager;
             _userManager = userManager;
-            _messagesender = messageSender;
+            _signInManager = signInManager;
+            _messagesender = messagesender;
+            _userManagerServices = userManagerServices;
         }
         [HttpGet]
         public async Task<IActionResult> Register()
@@ -236,6 +239,37 @@ namespace MVC.Controllers
         }
 
         public async Task<IActionResult> AccessDenied()
+        {
+            return View();
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            IdentityResult res =
+              await  _userManagerServices.ChangePassword(User.Identity.Name, model.CurrentPassword, model.NewPassword);
+            if (res.Succeeded)
+            {
+                return RedirectToAction("SuccessChangePassword");
+            }
+            ModelState.AddModelError("","خطایی رخ داده است لطفا به پشتیبانی اعلام نمایید.");
+            return View(model);
+        }
+
+        public async Task<IActionResult> SuccessChangePassword()
         {
             return View();
         }

@@ -28,7 +28,11 @@ namespace Application.Services
             {
                 int or = await _order.GetCurrentOrder(userid);
                 var itm = await _item.GetDetail(productid);
-                if (itm.QuantityInStock >= count)
+                if (itm == null)
+                {
+                    return false;
+                }
+                else if (itm.QuantityInStock >= count)
                 {
                     await _order.AddOrderDetail(userid, or, count, productid);
                     return true;

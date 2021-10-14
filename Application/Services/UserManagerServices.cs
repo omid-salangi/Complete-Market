@@ -199,5 +199,11 @@ namespace Application.Services
         {
             return  await   _userManager.Users.Where(n => n.UserName == username).Select(n => n.Id).FirstOrDefaultAsync();
         }
+
+        public async Task<IdentityResult> ChangePassword(string username,string currentpass,string newpass)
+        {
+            IdentityUserChange user = await _userManager.Users.Where(u => u.UserName == username).FirstOrDefaultAsync();
+            return await _userManager.ChangePasswordAsync(user, currentpass, newpass);
+        }
     }
 }

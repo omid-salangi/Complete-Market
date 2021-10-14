@@ -68,7 +68,9 @@ namespace Application.Services
                 VisitCount = temp.VisitCount,
                 ImgUrl = temp.ImgUrl,
                 quantityinstock = itemp.QuantityInStock,
-                Price = itemp.Price
+                Price = itemp.Price,
+                ProductId = productid
+
             };
             return model;
         }
@@ -111,5 +113,19 @@ namespace Application.Services
         {
            await _product.AddViewCount(productid);
         }
-    }
+
+        public async Task<bool> IsProductEnough(int productid, int count)
+        {
+            Item item = await _item.GetDetail(productid);
+            if (item.QuantityInStock >= count)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+   }
 }

@@ -114,6 +114,7 @@
                                 @if (signInManager.IsSignedIn(User))
                                 {
                                     <li><a href="#" class="link-dark rounded">@User.Identity.Name</a></li>
+                                    <li><a asp-action="ChangePassword" asp-controller="Accounts" class="link-dark rounded">تغییر رمز عبور</a></li>
                                     <form asp-action="LogOut" asp-controller="Accounts" method="post">
                                         <button type="submit" class="btn link-dark rounded">خروج</button>
                                     </form>
